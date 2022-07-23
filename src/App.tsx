@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import theme from "./lib/theme/theme";
+import { ThemeProvider } from "styled-components";
+import { RecoilRoot } from "recoil";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import pageRoutes from "./routes/pages";
+import ProtectedRoute from "./routes/protectedRoute";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Routes>
+            {pageRoutes.map((r) => {
+              const isAuthenticated = (!r.isPublic && isLoggedIn) || r.isPublic;
+              return (
+                <Route
+                  key={r.path}
+                  path={r.path}
+                  element={
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                      {r.element}
+                    </ProtectedRoute>
+                  }
+                />
+              );
+            })}
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
+    </ThemeProvider>
   );
 }
 
