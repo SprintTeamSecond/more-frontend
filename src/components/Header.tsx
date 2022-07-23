@@ -59,9 +59,9 @@ const Header: React.FunctionComponent<HeaderProps> = ({children}) => {
 const S = {
   Container: styled.div`
     display: flex;
+    flex: 0.6;
     justify-content: space-between;
-    width: 62%;
-    padding: 22px;
+    padding: 22px 0;
 
     .right-section {
       display: flex;
