@@ -1,5 +1,5 @@
 import Login from '../pages/Login';
-import Landing from '../pages/Landing';
+import Main from '../pages/Main';
 
 const pageRoutes: {
   path: string;
@@ -9,7 +9,7 @@ const pageRoutes: {
   {
     path: '/',
     isPublic: true,
-    element: <Landing />,
+    element: <Main />,
   },
   {
     path: '/login',
