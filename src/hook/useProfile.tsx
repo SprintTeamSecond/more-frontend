@@ -10,7 +10,7 @@ type userprofile = {
 };
 
 const useProfile = (datas: any) => {
-  const [users, setUsers] = useState([]);
+  const [userList, setuserList] = useState<userprofile[]>([]);
   const getUserdata = async () => {
     const response: AxiosResponse<any> = await axios.get(
       'https://api.github.com/user',
@@ -21,24 +21,21 @@ const useProfile = (datas: any) => {
       },
     );
     let res = response.data.data;
-    const data = res.map((u: any) => {
-      let userState = {
-        username: u.username,
-        email: u.email,
-        avatar: u.avatar,
-      };
-      return userState;
-    });
+    const data = res?.map(({username, email, avatar}: any) => ({
+      username,
+      email,
+      avatar,
+    }));
     return data;
   };
 
   useEffect(() => {
     getUserdata().then((res) => {
-      setUsers(res);
+      setuserList(res);
     });
   }, [datas]);
 
-  return {users};
-};
+  return {userList};
+};;
 
 export default useProfile;

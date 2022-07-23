@@ -11,9 +11,9 @@ export type ProfileProps = {
 const Profile = ({items}: ProfileProps) => {
   return (
     <div>
-      <span>{items?.github_avatar}</span>
+      <span>{items?.avatar}</span>
       <span>{items?.github_email}</span>
-      <span>{items?.github_username}</span>
+      <span>{items?.name}</span>
     </div>
   );
 };
