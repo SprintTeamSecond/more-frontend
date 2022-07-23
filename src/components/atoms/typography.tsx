@@ -1,7 +1,7 @@
 import styled, {DefaultTheme} from 'styled-components';
 
 type TypographyProps = {
-  size?: '12' | '13' | '14' | '16';
+  size?: '12' | '13' | '14' | '16' | '18' | '24';
   weight?: '500' | '700';
   color?: string;
   marginBottom?: number;
@@ -10,7 +10,7 @@ type TypographyProps = {
 };
 
 const Typography = styled.p<TypographyProps>`
-  font-size: ${(props) => props.size || '12'};
+  font-size: ${(props) => props.size + 'px' || '12'};
   font-weight: ${(props) => props.weight || '500'};
   color: ${(props) => props.color || 'black'};
   margin-bottom: ${(props) => props.marginBottom || '0'}px;

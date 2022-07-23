@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import Typography from './atoms/typography';
-import {UserIcon, PostIcon, SearchIcon} from './Icon';
+import {UserIcon, PostIcon, SearchIcon} from './atoms/Icon';
 interface HeaderProps {
   children?: React.ReactNode;
 }
@@ -75,7 +75,7 @@ const S = {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        padding: 10px 16px;
+        padding: 10px;
 
         cursor: pointer;
 

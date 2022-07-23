@@ -1,6 +1,7 @@
 import * as React from 'react';
 import qs, {ParsedQs} from 'qs';
 import axios, {AxiosResponse, AxiosError} from 'axios';
+import styled from 'styled-components';
 type getAccessTokenParams = {
   client_id: string | undefined;
   client_secret: string | undefined;
@@ -51,10 +52,20 @@ const Callback = () => {
     }
   }, [location, history]);
   return (
-    <div>
+    <S.Container>
       <span>깃허브로 로그인 중입니다</span>
-    </div>
+    </S.Container>
   );
 };
 
 export default Callback;
+
+const S = {
+  Container: styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  `,
+};

@@ -28,7 +28,7 @@ const S = {
     background-color: #f5f7fa;
     width: 100%;
     display: flex;
-    flex: 1;
+    flex-direction: column;
     min-height: calc(100vh - 88px);
     height: 100%;
   `,
