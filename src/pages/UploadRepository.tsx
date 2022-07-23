@@ -10,7 +10,7 @@ const UploadRepository = () => {
       <Typography size="13" marginBottom={10}>
         레포 업로드 페이지입니다
       </Typography>
-      <FormRepository/>
+      <FormRepository />
     </div>
   );
 };

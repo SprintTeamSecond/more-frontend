@@ -27,7 +27,6 @@ const pageRoutes: {
     isPublic: false,
     element: <UploadRepository />,
   },
-
 ];
 
 export default pageRoutes;
