@@ -1,8 +1,8 @@
 import styled, {DefaultTheme} from 'styled-components';
 
 type TypographyProps = {
-  size?: '12' | '13' | '14' | '16' | '18' | '24';
-  weight?: '500' | '700';
+  size?: '12' | '13' | '14' | '16' | '18' | '22' | '24';
+  weight?: '400' | '500' | '700';
   color?: string;
   marginBottom?: number;
   marginTop?: number;

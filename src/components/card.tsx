@@ -1,26 +1,55 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {PostEntity} from '../types';
+import {GithubPost, PostEntity} from '../types';
+import {CommentIcon, LikeIcon, NodeJsIcon, UserIcon} from './atoms/Icon';
 import Typography from './atoms/typography';
 
 interface CardProps {
-  data: PostEntity;
+  data: GithubPost;
 }
 
 const Card = ({data}: CardProps) => {
   return (
     <S.Container>
-      <div className="imageContainer"></div>
+      <img className="thumbnail" src={data.thumbnail} />
       <div className="contentsContainer">
-        <div className="titleBox">{data.title}</div>
-        <div className="descBox">{data.description}</div>
-        <div className="languageTagBox">
-          {data.used_language.map((item) => {
-            return <span>{item}</span>;
-          })}
+        <div className="titleBox">
+          <Typography size="22" weight="700" color="#212121">
+            {data.title}
+          </Typography>
         </div>
-
-        <div></div>
+        <div className="descBox">
+          <Typography size="16" weight="400" color="#4d4d4d">
+            {data.description}
+          </Typography>
+        </div>
+        <section className="languageTagSection">
+          {data.used_language.map((item) => {
+            return <NodeJsIcon />;
+          })}
+        </section>
+        <section className="bottomSection">
+          <div className="userInfo">
+            <UserIcon />
+            <Typography size="16" weight="400" color="#4D4D4D">
+              {data.author.user}
+            </Typography>
+          </div>
+          <div className="likeComment">
+            <div className="likeBox">
+              <LikeIcon />
+              <Typography size="16" weight="400" color="#4D4D4D">
+                {data.like}
+              </Typography>
+            </div>
+            <div className="commentBox">
+              <CommentIcon />
+              <Typography size="16" weight="400" color="#4D4D4D">
+                12
+              </Typography>
+            </div>
+          </div>
+        </section>
       </div>
     </S.Container>
   );
@@ -41,9 +70,10 @@ const S = {
 
     overflow: hidden;
 
-    .imageContainer {
+    .thumbnail {
       width: 100%;
       height: 192px;
+      object-fit: cover;
       background-color: #717171;
     }
     .contentsContainer {
@@ -52,24 +82,39 @@ const S = {
     .titleBox {
       width: 330px;
       height: 62px;
-
-      font-weight: 700;
-      font-size: 22px;
-      color: #212121;
       line-height: 140%;
       margin-bottom: 12px;
     }
     .descBox {
       width: 330px;
       height: 44px;
-
-      font-weight: 400;
-      font-size: 16px;
-      color: #4d4d4d;
       line-height: 140%;
       margin-bottom: 24px;
     }
-    .languageTagBox {
+    .languageTagSection {
+      display: flex;
+      gap: 13px;
+      margin-bottom: 44px;
+    }
+    .bottomSection {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .userInfo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .likeComment {
+      display: flex;
+      gap: 13.5px;
+    }
+    .likeBox,
+    .commentBox {
+      display: flex;
+      align-items: center;
+      gap: 9.5px;
     }
   `,
 };
