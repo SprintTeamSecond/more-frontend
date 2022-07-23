@@ -1,30 +1,40 @@
 import React from "react";
 import styled, { DefaultTheme, useTheme } from "styled-components";
-import axios from "axios";
+import axios, { AxiosResponse } from 'axios';
 import { getImpliedNodeFormatForFile } from "typescript";
 
-// type userprofile = {
-//     email:string;
-//     avatar:any;
-//     username:string;
-// }
+type userprofile = {
+    email:string;
+    avatar:any;
+    username:string;
+}
 
-const Profile = async() =>{
-    const {data} = await axios.get('https://api.github.com/user', {
+
+const Profile = () =>{
+   const Userdata = async(datas: any) =>{
+ const response: AxiosResponse<any> = await axios.get('https://api.github.com/user', {
     headers: {
       Authorization: `token`,
     },
   });
-    return(
+   let res = response.data.datas;
+    const data = res.map((u: any) => {
+        let userState = {
+          username: u.username,
+          email:u.email,
+          avatar:u.avatar,  
+        };
+        return userState;
+      });
+      return data;
+    } 
+      return(
     <div>
-        {data.email}
-        {data.avatar} 
-        {data.username}
-        잠잠
+       
     </div>
     )
-}
-
+} 
+  
 export default Profile;
 
 // 
