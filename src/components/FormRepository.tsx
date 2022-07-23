@@ -1,46 +1,59 @@
 import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useForm, SubmitHandler} from 'react-hook-form';
-import {Axios} from '../lib/axios';
-import {PostCreateForm} from '../types';
+import {useRecoilState} from 'recoil';
+import {userStateType, userState} from '../states/user';
+import {fetch} from '../lib/axios/uploadForm';
 
 type FormData = {
+  userName: string;
   title: string;
   repositoryUrl: string;
   description?: string;
-  thumnail?: string;
+  thumbnail?: string;
   tags?: string[];
 };
 
-/**
- * 제목(필수), 깃허브 레포URL(필수), 한줄소개, 썸네일, 해시태그
- * 입력받아서 state로 저장하고 있는 컴포넌트
- * submit 이벤트에 서버에 보낸다
- *
- * HTTP 통신 성공하면 이전페이지로 돌아간다.
- *  */
+type FormInput = Omit<FormData, 'thumbnail' | 'userName'>;
+
+type UserRepo = {
+  id: number;
+  description: string | null;
+  fullName: string;
+  updatedAt: string;
+  url: string;
+};
+
 export const FormRepository = () => {
   const navigate = useNavigate();
-  const {register, handleSubmit} = useForm<FormData>();
-  const [formData, setFormData] = useState<FormData>();
+  const {fetchUserRepos, fetchFormData} = fetch();
 
-  const fetchFormData = async (formData: FormData) => {
-    try {
-      await Axios.post<PostCreateForm, FormData>('/post', formData);
-      navigate(-1);
-    } catch (e) {
-      console.error(e);
-      alert('잠시 후 다시 시도해주세요.');
-    }
-  };
+  const [repos, setRepos] = useState<UserRepo[]>();
+  const {register, handleSubmit} = useForm<FormInput>();
+  const [formData, setFormData] = useState<FormInput>();
 
-  const onSubmitHandler: SubmitHandler<FormData> = (submitData) => {
+  const [userData] = useRecoilState<userStateType>(userState);
+
+  const onSubmitHandler: SubmitHandler<FormInput> = (submitData) => {
     setFormData(submitData);
   };
 
   useEffect(() => {
-    formData && fetchFormData(formData);
+    formData &&
+      //userData.username && fetchFormData<FormData>({...formData, userName: userData.username})
+      fetchFormData<FormData>({...formData, userName: 'hongbeen'})
+        .then(() => {
+          navigate(-1);
+        })
+        .catch((e) => alert('잠시 후에 다시 시도해주세요.'));
   }, [formData]);
+
+  useEffect(() => {
+    // userData.username && fetchUserRepos(userData.username)
+    fetchUserRepos('hong-been')
+      .then((repos) => setRepos(repos))
+      .catch((e) => alert('잠시 후에 다시 시도해주세요.'));
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -59,16 +72,12 @@ export const FormRepository = () => {
       <label>
         <span>내 레파지토리 가져오기</span>
         <select {...register('repositoryUrl', {required: true})}>
-          <option value="a-repo">a-repo</option>
-          <option value="b-repo">b-repo</option>
-          <option value="c-repo">c-repo</option>
+          {repos?.map((repo) => (
+            <option key={repo.id} value={repo.url}>
+              {`${repo.fullName} - ${repo.description || ''} - ${repo.updatedAt}`}
+            </option>
+          ))}
         </select>
-      </label>
-      <label>
-        <span>썸네일</span>
-        <input
-          placeholder="thumnail"
-          {...register('thumnail', {required: false})}></input>
       </label>
       <label>
         <span>해시태그</span>

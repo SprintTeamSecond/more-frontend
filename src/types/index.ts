@@ -1,12 +1,12 @@
 export interface UserEntity {
-  _id: string;
-  user: string;
+  id: string;
 }
 
 export interface GithubUser extends UserEntity {
   github_email: string;
-  github_avatar: string;
-  github_username: string;
+  avatar: string;
+  name: string;
+  url: string;
 }
 
 export interface PostEntity {

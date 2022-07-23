@@ -1,56 +1,31 @@
 import * as React from 'react';
-import qs, {ParsedQs} from 'qs';
-import axios, {AxiosResponse, AxiosError} from 'axios';
+import qs from 'qs';
 import styled from 'styled-components';
-type getAccessTokenParams = {
-  client_id: string | undefined;
-  client_secret: string | undefined;
-  code: string | ParsedQs | string[] | ParsedQs[] | undefined;
-  redirect_uri: string;
-};
+import GithubRepository from '../repository/github';
+import {useNavigate} from 'react-router-dom';
 
 const Callback = () => {
-  const getAccessToken = ({
-    client_id,
-    client_secret,
-    code,
-    redirect_uri,
-  }: getAccessTokenParams) => {
-    axios({
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'text/json',
-      },
-      url: 'https://github.com/login/oauth/access_token',
-      method: 'POST',
-      data: {
-        client_id,
-        client_secret,
-        code,
-        redirect_uri,
-      },
-    })
-      .then((res: AxiosResponse) => console.log(res))
-      .catch((err: AxiosError) => console.log(err));
-  };
-
+  const navigate = useNavigate();
   React.useEffect(() => {
-    const {code} = qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    });
+    const getGithubAccessToken = async () => {
+      const {code} = qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+      });
+      const token = await GithubRepository.getAccessToken(code);
+      localStorage.setItem('ACCESS_TOKEN', token);
+      const {data} = await GithubRepository.getUser(token);
+      console.log('info', data);
+      // 성공시 로직
+      // 리코일 로그인 상태 변경
+      //navigate("?/mainpage")
+    };
     try {
-      const params: getAccessTokenParams = {
-        client_id: process.env.REACT_APP_GITHUB_CLIENT_ID,
-        client_secret: process.env.REACT_APP_GITHUB_SECRET_KEY,
-        code,
-        redirect_uri: 'http://localhost:3000/callback',
-      };
-      getAccessToken(params);
+      getGithubAccessToken();
     } catch {
       alert('로그인 실패');
     } finally {
     }
-  }, [location, history]);
+  }, [location]);
   return (
     <S.Container>
       <span>깃허브로 로그인 중입니다</span>
