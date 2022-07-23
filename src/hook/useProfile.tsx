@@ -11,7 +11,7 @@ type userprofile = {
 
 const useProfile = (datas: any) => {
   const [users, setUsers] = useState([]);
-  const Userdata = async () => {
+  const getUserdata = async () => {
     const response: AxiosResponse<any> = await axios.get(
       'https://api.github.com/user',
       {
@@ -33,7 +33,7 @@ const useProfile = (datas: any) => {
   };
 
   useEffect(() => {
-    Userdata().then((res) => {
+    getUserdata().then((res) => {
       setUsers(res);
     });
   }, [datas]);

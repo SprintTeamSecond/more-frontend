@@ -30,3 +30,5 @@ const useLike = () => {
 
   return {likeList};
 };
+
+export default useLike;
