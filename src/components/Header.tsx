@@ -14,33 +14,45 @@ const Header: React.FunctionComponent<HeaderProps> = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
   const navigate = useNavigate();
   return (
-    <S.Container>
-      <span className="MORE_LOGO" onClick={() => navigate('/', {replace: true})}>
-        MO:RE
-      </span>
-      <div className="right-section">
-        <form className="right-search-section" onSubmit={(e) => e.preventDefault()}>
-          <input placeholder="어떤 기술스택의 레포지토리를 찾으시나요?" />
-          <button type="submit">
-            <SearchIcon className="searchIcon" />
-          </button>
-        </form>
-        {isLoggedIn ? (
-          <section className="right-user-section">
-            <UserIcon />
-            <PostIcon />
-          </section>
-        ) : (
-          <section className="right-login-section">
-            <button onClick={() => navigate('/login', {replace: true})}>
-              <Typography size="16" weight="700" color="#FFFFFF">
-                LOG IN
-              </Typography>
+    <div
+      style={{
+        backgroundColor: '#fff',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
+      <S.Container>
+        <span
+          className="left-section_logo"
+          onClick={() => navigate('/', {replace: true})}>
+          MO:RE
+        </span>
+        <div className="right-section">
+          <form
+            className="right-search-section"
+            onSubmit={(e) => e.preventDefault()}>
+            <input placeholder="어떤 기술스택의 레포지토리를 찾으시나요?" />
+            <button type="submit">
+              <SearchIcon className="searchIcon" />
             </button>
-          </section>
-        )}
-      </div>
-    </S.Container>
+          </form>
+          {isLoggedIn ? (
+            <section className="right-user-section">
+              <UserIcon />
+              <PostIcon />
+            </section>
+          ) : (
+            <section className="right-login-section">
+              <button onClick={() => navigate('/login', {replace: true})}>
+                <Typography size="16" weight="700" color="#FFFFFF">
+                  LOG IN
+                </Typography>
+              </button>
+            </section>
+          )}
+        </div>
+      </S.Container>
+    </div>
   );
 };
 
@@ -96,7 +108,9 @@ const S = {
         }
       }
     }
-    .MORE_LOGO {
+    .left-section_logo {
+      display: flex;
+      align-items: center;
       font-family: 'SUIT-Heavy';
       font-style: normal;
       font-weight: 900;

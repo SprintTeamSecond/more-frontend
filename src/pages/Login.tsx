@@ -1,12 +1,7 @@
 import styled from 'styled-components';
 import {GithubIcon} from '../components/atoms/Icon';
 import Typography from '../components/atoms/typography';
-
 const GITHUB_END_POINT = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=repo:status read:repo_hook user:email&redirect_uri=http://localhost:3000/callback`;
-
-type OauthParameterType = {
-  clientId: string | undefined;
-};
 
 const Login = () => {
   return (
@@ -41,6 +36,7 @@ const S = {
     align-items: center;
     display: flex;
     padding: 20px 90px;
+    background-color: #fff;
     gap: 10px;
     border: 1px solid #abbed1;
     border-radius: 8px;

@@ -1,56 +1,35 @@
 import * as React from 'react';
-import qs, {ParsedQs} from 'qs';
-import axios, {AxiosResponse, AxiosError} from 'axios';
+import qs from 'qs';
 import styled from 'styled-components';
-type getAccessTokenParams = {
-  client_id: string | undefined;
-  client_secret: string | undefined;
-  code: string | ParsedQs | string[] | ParsedQs[] | undefined;
-  redirect_uri: string;
+
+import {getAccessTokenParams} from '../types/Oauth';
+import {GET_GITHUB_ACCESS_TOKEN} from '../repository';
+
+const getAccessToken = async (params: getAccessTokenParams) => {
+  return await GET_GITHUB_ACCESS_TOKEN(params);
 };
 
 const Callback = () => {
-  const getAccessToken = ({
-    client_id,
-    client_secret,
-    code,
-    redirect_uri,
-  }: getAccessTokenParams) => {
-    axios({
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'text/json',
-      },
-      url: 'https://github.com/login/oauth/access_token',
-      method: 'POST',
-      data: {
-        client_id,
-        client_secret,
-        code,
-        redirect_uri,
-      },
-    })
-      .then((res: AxiosResponse) => console.log(res))
-      .catch((err: AxiosError) => console.log(err));
-  };
-
   React.useEffect(() => {
-    const {code} = qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    });
-    try {
+    const getGithubAccessToken = async () => {
+      const {code} = qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+      });
       const params: getAccessTokenParams = {
-        client_id: process.env.REACT_APP_GITHUB_CLIENT_ID,
-        client_secret: process.env.REACT_APP_GITHUB_SECRET_KEY,
+        client_id: process.env.REACT_APP_GITHUB_CLIENT_ID as string,
+        client_secret: process.env.REACT_APP_GITHUB_SECRET_KEY as string,
         code,
-        redirect_uri: 'http://localhost:3000/callback',
       };
-      getAccessToken(params);
+      const data = await GET_GITHUB_ACCESS_TOKEN(params);
+      console.log(data);
+    };
+    try {
+      getGithubAccessToken();
     } catch {
       alert('로그인 실패');
     } finally {
     }
-  }, [location, history]);
+  }, [location]);
   return (
     <S.Container>
       <span>깃허브로 로그인 중입니다</span>
