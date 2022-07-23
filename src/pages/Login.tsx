@@ -5,7 +5,11 @@ import GithubRepository from '../repository/github';
 
 const GITHUB_END_POINT = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=repo:status read:repo_hook user:email&redirect_uri=http://localhost:3000/callback`;
 
+import {useRecoilState} from 'recoil';
+import {authState} from '../states/auth';
+
 const Login = () => {
+  const [isLoggedIn, setIseLoggedIn] = useRecoilState(authState);
   const initializing = async () => {
     const token = localStorage.getItem('ACCESS_TOKEN');
     if (!token) {
