@@ -5,11 +5,14 @@ import {RecoilRoot} from 'recoil';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import pageRoutes from './routes/pages';
 import ProtectedRoute from './routes/protectedRoute';
+import {Layout} from './components';
+import {GlobalStyle} from './lib/theme/theme';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <RecoilRoot>
         <BrowserRouter>
           <Routes>
@@ -21,7 +24,7 @@ function App() {
                   path={r.path}
                   element={
                     <ProtectedRoute isAuthenticated={isAuthenticated}>
-                      {r.element}
+                      <Layout>{r.element}</Layout>
                     </ProtectedRoute>
                   }
                 />

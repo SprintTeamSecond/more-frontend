@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled, {DefaultTheme, useTheme} from 'styled-components';
 import Typography from '../components/atoms/typography';
+import Card from '../components/card';
 import {PostEntity} from '../types';
 
 const Main = () => {
@@ -11,8 +12,8 @@ const Main = () => {
 
   return (
     <S.Container>
-      {cardList.map((item) => {
-        return <div key={item._id}>{item.title}</div>;
+      {cardList.map((data) => {
+        return <Card data={data}></Card>;
       })}
     </S.Container>
   );

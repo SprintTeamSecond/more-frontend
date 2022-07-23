@@ -1,15 +1,14 @@
-import { atom, selector } from "recoil";
+import {atom, selector} from 'recoil';
 
 export const authState = atom({
-  key: "auth",
-  default: "dddd",
+  key: 'auth',
+  default: false,
 });
 
 export const authSelector = selector({
-  key: "ddd",
-  get: ({ get }) => {
+  key: 'getIsLoggedIn',
+  get: ({get}) => {
     const auth = get(authState);
-
-    return `${auth} 님 안녕하세요`;
+    return auth;
   },
 });
