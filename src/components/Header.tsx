@@ -3,22 +3,23 @@ import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import Typography from './atoms/typography';
 import {UserIcon, PostIcon, SearchIcon} from './atoms/Icon';
-interface HeaderProps {
-  children?: React.ReactNode;
-}
 
-import {useRecoilState, useRecoilValue} from 'recoil';
-import {authState} from '../states/auth';
-
-const Header: React.FunctionComponent<HeaderProps> = ({children}) => {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
+import {useRecoilValue} from 'recoil';
+import {isLoggedInState} from '../states/auth';
+import {useTheme} from 'styled-components';
+const Header: React.FunctionComponent = () => {
+  const isLoggedIn = useRecoilValue(isLoggedInState);
   const navigate = useNavigate();
+  const {
+    colors: {neutral},
+  } = useTheme();
   return (
     <div
       style={{
-        backgroundColor: '#fff',
+        backgroundColor: neutral.WHITE,
         width: '100%',
         display: 'flex',
+        flex: 1,
         justifyContent: 'center',
       }}>
       <S.Container>
@@ -38,13 +39,16 @@ const Header: React.FunctionComponent<HeaderProps> = ({children}) => {
           </form>
           {isLoggedIn ? (
             <section className="right-user-section">
-              <UserIcon />
+              <div onClick={() => navigate('/profile', {replace: true})}>
+                <UserIcon />
+              </div>
+
               <PostIcon />
             </section>
           ) : (
             <section className="right-login-section">
               <button onClick={() => navigate('/login', {replace: true})}>
-                <Typography size="16" weight="700" color="#FFFFFF">
+                <Typography size="16" weight="700" color={neutral.WHITE}>
                   LOG IN
                 </Typography>
               </button>
@@ -59,13 +63,26 @@ const Header: React.FunctionComponent<HeaderProps> = ({children}) => {
 const S = {
   Container: styled.div`
     display: flex;
+    flex: 0.6;
     justify-content: space-between;
-    width: 62%;
-    padding: 22px;
+    padding: 22px 0;
+    .left-section_logo {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      font-family: 'SUIT-Heavy';
+      font-style: normal;
+      font-weight: 900;
+      font-size: 27px;
+      line-height: 34px;
 
+      cursor: pointer;
+    }
     .right-section {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
+      flex: 1;
       & > section {
         margin-left: 24px;
       }
@@ -73,7 +90,7 @@ const S = {
         display: flex;
         align-items: center;
         padding: 14.5px;
-        width: 598px;
+        flex: 3;
         height: 44px;
         position: relative;
         background: #eef5fc;
@@ -84,6 +101,7 @@ const S = {
       }
       .right-login-section button {
         display: flex;
+        flex: 1;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -107,17 +125,6 @@ const S = {
           cursor: pointer;
         }
       }
-    }
-    .left-section_logo {
-      display: flex;
-      align-items: center;
-      font-family: 'SUIT-Heavy';
-      font-style: normal;
-      font-weight: 900;
-      font-size: 27px;
-      line-height: 34px;
-
-      cursor: pointer;
     }
   `,
 };

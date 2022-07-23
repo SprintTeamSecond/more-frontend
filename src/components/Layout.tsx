@@ -4,7 +4,6 @@ import Header from './Header';
 interface LayoutProps {
   children: React.ReactNode;
 }
-
 const Layout: React.FunctionComponent<LayoutProps> = ({children}) => {
   return (
     <S.Container>
@@ -25,7 +24,7 @@ const S = {
     align-items: center;
   `,
   Main: styled.main`
-    width: 62%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 88px);

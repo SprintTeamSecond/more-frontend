@@ -3,37 +3,46 @@ import qs from 'qs';
 import styled from 'styled-components';
 
 import {getAccessTokenParams} from '../types/Oauth';
-import {GET_GITHUB_ACCESS_TOKEN} from '../repository';
+import {LOGIN_ACTION} from '../repository';
+import {useRecoilState} from 'recoil';
+import {isLoggedInState} from '../states/auth';
 
-const getAccessToken = async (params: getAccessTokenParams) => {
-  return await GET_GITHUB_ACCESS_TOKEN(params);
-};
+import {useNavigate} from 'react-router-dom';
 
 const Callback = () => {
-  React.useEffect(() => {
-    const getGithubAccessToken = async () => {
-      const {code} = qs.parse(location.search, {
-        ignoreQueryPrefix: true,
-      });
-      const params: getAccessTokenParams = {
-        client_id: process.env.REACT_APP_GITHUB_CLIENT_ID as string,
-        client_secret: process.env.REACT_APP_GITHUB_SECRET_KEY as string,
-        code,
-      };
-      const data = await GET_GITHUB_ACCESS_TOKEN(params);
-      console.log(data);
+  const [loading, setLoading] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const navigate = useNavigate();
+
+  const handleSignInAction = async () => {
+    const {code} = qs.parse(location.search, {
+      ignoreQueryPrefix: true,
+    });
+    const params: getAccessTokenParams = {
+      client_id: process.env.REACT_APP_GITHUB_CLIENT_ID as string,
+      client_secret: process.env.REACT_APP_GITHUB_SECRET_KEY as string,
+      code,
     };
+    const {error, data} = await LOGIN_ACTION(params);
+    if (error) throw Error(error);
+    if (data.status === 200) {
+      setIsLoggedIn(true);
+      setLoading(false);
+      navigate('/');
+      window.localStorage.setItem('isLoggedIn', JSON.stringify(true));
+    }
+  };
+  React.useEffect(() => {
     try {
-      getGithubAccessToken();
+      handleSignInAction();
     } catch {
       alert('로그인 실패');
     } finally {
     }
   }, [location]);
+  if (isLoggedIn) window.location.href = '/';
   return (
-    <S.Container>
-      <span>깃허브로 로그인 중입니다</span>
-    </S.Container>
+    <S.Container>{loading && <span>깃허브로 로그인 중입니다</span>}</S.Container>
   );
 };
 

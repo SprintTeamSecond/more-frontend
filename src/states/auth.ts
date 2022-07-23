@@ -1,14 +1,6 @@
 import {atom, selector} from 'recoil';
 
-export const authState = atom({
-  key: 'auth',
+export const isLoggedInState = atom({
+  key: 'isLoggedIn',
   default: false,
-});
-
-export const authSelector = selector({
-  key: 'getIsLoggedIn',
-  get: ({get}) => {
-    const auth = get(authState);
-    return auth;
-  },
 });
