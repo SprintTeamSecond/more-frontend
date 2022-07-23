@@ -9,6 +9,12 @@ export interface GithubUser extends UserEntity {
   github_username: string;
 }
 
+export type ProfileProps = {
+  github_email: string;
+  github_avatar: string;
+  github_username: string;
+}
+
 export interface PostEntity {
   _id: string;
   title: string;
