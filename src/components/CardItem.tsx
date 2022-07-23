@@ -8,19 +8,23 @@ interface CardProps {
   data: GithubPost;
 }
 
-const Card = ({data}: CardProps) => {
+const CardItem = ({data}: CardProps) => {
   return (
     <S.Container>
       <img className="thumbnail" src={data.thumbnail} />
       <div className="contentsContainer">
         <div className="titleBox">
           <Typography size="22" weight="700" color="#212121">
-            {data.title}
+            {data.title.length > 33
+              ? data.title.substring(0, 33) + '...'
+              : data.title}
           </Typography>
         </div>
         <div className="descBox">
           <Typography size="16" weight="400" color="#4d4d4d">
-            {data.description}
+            {data.description.length > 46
+              ? data.description.substring(0, 46) + '...'
+              : data.description}
           </Typography>
         </div>
         <section className="languageTagSection">
@@ -55,7 +59,7 @@ const Card = ({data}: CardProps) => {
   );
 };
 
-export default Card;
+export default CardItem;
 
 const S = {
   Container: styled.div`
