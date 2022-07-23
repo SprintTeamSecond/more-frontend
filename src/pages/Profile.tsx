@@ -1,10 +1,26 @@
+import { Avatar } from "@class101/ui";
 import React from "react";
 import styled, { DefaultTheme, useTheme } from "styled-components";
+import axios from "axios";
+import Login from "./Login";
 
-const Profile = () =>{
+type userprofile = {
+    email:string;
+    avatar:any;
+    username:string;
+}
+
+const Profile = async () =>{
+    const { data } = await axios.get('https://api.github.com/user', {
+    headers: {
+      Authorization: `token`,
+    },
+  });
     return(
     <div>
-        잠잠
+        {/* {email} */}
+        {/* {avatar} */}
+        {/* {username} */}
     </div>
     )
 }
