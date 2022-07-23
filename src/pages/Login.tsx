@@ -2,10 +2,18 @@ import styled from 'styled-components';
 import {GithubIcon} from '../components/atoms/Icon';
 import Typography from '../components/atoms/typography';
 import GithubRepository from '../repository/github';
+import {useNavigate} from 'react-router-dom';
 
 const GITHUB_END_POINT = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=repo:status read:repo_hook user:email&redirect_uri=http://localhost:3000/callback`;
 
+import {useRecoilState} from 'recoil';
+import {userState, authState} from '../states';
+
 const Login = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
+
   const initializing = async () => {
     const token = localStorage.getItem('ACCESS_TOKEN');
     if (!token) {
@@ -13,8 +21,11 @@ const Login = () => {
     }
     //액세스 토큰이 있다면 자동 로그인 구현
     const {data} = await GithubRepository.getUser(token as string);
-    console.log('이니셜라이징', data);
-    // recoil state loggedin = true 로 변경
+    if (data) {
+      setUser(data);
+      setIsLoggedIn(true);
+      navigate('/');
+    }
   };
 
   return (
