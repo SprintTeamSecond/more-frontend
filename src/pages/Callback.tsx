@@ -1,27 +1,23 @@
 import * as React from 'react';
 import qs from 'qs';
 import styled from 'styled-components';
-
-import {getAccessTokenParams} from '../types/Oauth';
-import {GET_GITHUB_ACCESS_TOKEN} from '../repository';
-
-const getAccessToken = async (params: getAccessTokenParams) => {
-  return await GET_GITHUB_ACCESS_TOKEN(params);
-};
+import GithubRepository from '../repository/github';
+import {useNavigate} from 'react-router-dom';
 
 const Callback = () => {
+  const navigate = useNavigate();
   React.useEffect(() => {
     const getGithubAccessToken = async () => {
       const {code} = qs.parse(location.search, {
         ignoreQueryPrefix: true,
       });
-      const params: getAccessTokenParams = {
-        client_id: process.env.REACT_APP_GITHUB_CLIENT_ID as string,
-        client_secret: process.env.REACT_APP_GITHUB_SECRET_KEY as string,
-        code,
-      };
-      const data = await GET_GITHUB_ACCESS_TOKEN(params);
-      console.log(data);
+      const token = await GithubRepository.getAccessToken(code);
+      localStorage.setItem('ACCESS_TOKEN', token);
+      const {data} = await GithubRepository.getUser(token);
+      console.log('info', data);
+      // 성공시 로직
+      // 리코일 로그인 상태 변경
+      //navigate("?/mainpage")
     };
     try {
       getGithubAccessToken();
