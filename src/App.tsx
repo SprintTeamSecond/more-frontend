@@ -1,10 +1,10 @@
-import React from "react";
-import theme from "./lib/theme/theme";
-import { ThemeProvider } from "styled-components";
-import { RecoilRoot } from "recoil";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import pageRoutes from "./routes/pages";
-import ProtectedRoute from "./routes/protectedRoute";
+import React from 'react';
+import theme from './lib/theme/theme';
+import {ThemeProvider} from 'styled-components';
+import {RecoilRoot} from 'recoil';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import pageRoutes from './routes/pages';
+import ProtectedRoute from './routes/protectedRoute';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
