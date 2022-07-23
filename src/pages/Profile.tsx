@@ -5,7 +5,7 @@ import {GithubUser} from '../types';
 import useProfile from '../hook/useProfile';
 
 export type ProfileProps = {
-  items: GithubUser;
+  items?: GithubUser;
 };
 
 const Profile = ({items}: ProfileProps) => {
