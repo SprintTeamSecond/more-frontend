@@ -1,3 +1,6 @@
+import "styled-components";
+// import theme from './theme'
+
 export type Themetype = {
   colors: {
     primary: string;
@@ -15,9 +18,6 @@ const theme: Themetype = {
   },
   dimensions: {},
 };
-
-import "styled-components";
-// import theme from './theme'
 
 declare module "styled-components" {
   export interface DefaultTheme extends Themetype {}

@@ -15,6 +15,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   if (!isAuthenticated) {
     navigate("/login");
   }
+  else {
+    navigate("/profile")
+  }
   return children;
 };
 
