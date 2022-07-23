@@ -1,4 +1,5 @@
-import Login from "../pages/Login";
+import Login from '../pages/Login';
+import Landing from '../pages/Landing';
 
 const pageRoutes: {
   path: string;
@@ -6,7 +7,12 @@ const pageRoutes: {
   element: JSX.Element;
 }[] = [
   {
-    path: "/login",
+    path: '/',
+    isPublic: true,
+    element: <Landing />,
+  },
+  {
+    path: '/login',
     isPublic: true,
     element: <Login />,
   },
