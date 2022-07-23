@@ -1,7 +1,8 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import styled, { DefaultTheme, useTheme } from "styled-components";
 import axios, { AxiosResponse } from 'axios';
-import { getImpliedNodeFormatForFile } from "typescript";
+import {GithubUser}  from '../types';
+
 
 type userprofile = {
     email:string;
@@ -10,14 +11,15 @@ type userprofile = {
 }
 
 
-const Profile = () =>{
-   const Userdata = async(datas: any) =>{
- const response: AxiosResponse<any> = await axios.get('https://api.github.com/user', {
+const Profile = (datas: any) =>{
+    const [users,setUsers] = useState([]);
+    const Userdata = async() =>{
+    const response: AxiosResponse<any> = await axios.get('https://api.github.com/user', {
     headers: {
       Authorization: `token`,
     },
   });
-   let res = response.data.datas;
+   let res = response.data.data;
     const data = res.map((u: any) => {
         let userState = {
           username: u.username,
@@ -27,13 +29,24 @@ const Profile = () =>{
         return userState;
       });
       return data;
-    } 
-      return(
+    }
+    
+  useEffect(() => {
+    Userdata().then((res) => {
+      setUsers(res);
+    });
+  }, [datas]);
+
+  return { Userdata };
+
+    return(
     <div>
-       
+        잠잠
     </div>
     )
-} 
+
+};
+
   
 export default Profile;
 
