@@ -25,8 +25,7 @@ const S = {
     align-items: center;
   `,
   Main: styled.main`
-    background-color: #f5f7fa;
-    width: 100%;
+    width: 62%;
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 88px);
