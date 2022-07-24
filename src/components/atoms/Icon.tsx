@@ -51,6 +51,22 @@ export const SearchIcon = ({className}: any) => (
   </svg>
 );
 
+export const CloseIcon = () => (
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 18 18"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M16.5 16.5L9 9M9 9L1.5 1.5M9 9L16.5 1.5M9 9L1.5 16.5"
+      stroke="black"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export const GithubIcon = () => (
   <svg
     width="30"
