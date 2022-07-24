@@ -26,7 +26,7 @@ const Main = () => {
       </div>
       <div className="cardList">
         {cardList.map((data) => {
-          return <CardItem key={data._id} data={data}></CardItem>;
+          return <CardItem key={data.id} data={data}></CardItem>;
         })}
       </div>
     </S.Container>
@@ -61,74 +61,78 @@ const S = {
 
 const dummyData: GithubPost[] = [
   {
-    _id: 'id1',
+    id: 'id1',
     title:
       '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
-    like: 23,
+    post_like: 23,
     description:
       '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
       'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
     created_at: '',
-    star: 12,
-    author: {id: '유저 이름'},
-    github_url: 'asd',
+    stars: 12,
+    author: '유저 이름',
+    url: 'asd',
   },
   {
-    _id: 'id2',
-    title: '포스트 타이틀',
-    like: 23,
+    id: 'id1',
+    title:
+      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
+    post_like: 23,
     description:
       '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
       'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
     created_at: '',
-    star: 12,
-    author: {id: '유저 이름'},
-    github_url: 'asd',
+    stars: 12,
+    author: '유저 이름',
+    url: 'asd',
   },
   {
-    _id: 'id3',
-    title: '포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
-    like: 23,
+    id: 'id1',
+    title:
+      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
+    post_like: 23,
     description:
       '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
       'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
     created_at: '',
-    star: 12,
-    author: {id: '유저 이름'},
-    github_url: 'asd',
+    stars: 12,
+    author: '유저 이름',
+    url: 'asd',
   },
   {
-    _id: 'id4',
-    title: '포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
-    like: 23,
-    description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
-    used_language: 'JavaScript::NodeJs::NextJs::React',
-    thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
-    created_at: '',
-    star: 12,
-    author: {id: '유저 이름'},
-    github_url: 'asd',
-  },
-  {
-    _id: 'id5',
-    title: '포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
-    like: 23,
+    id: 'id1',
+    title:
+      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
+    post_like: 23,
     description:
       '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
       'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
     created_at: '',
-    star: 12,
-    author: {id: '유저 이름'},
-    github_url: 'asd',
+    stars: 12,
+    author: '유저 이름',
+    url: 'asd',
+  },
+  {
+    id: 'id1',
+    title:
+      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
+    post_like: 23,
+    description:
+      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
+    used_language: 'JavaScript::NodeJs::NextJs',
+    thumbnail:
+      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
+    created_at: '',
+    stars: 12,
+    author: '유저 이름',
+    url: 'asd',
   },
 ];

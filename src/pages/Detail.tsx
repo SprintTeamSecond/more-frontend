@@ -8,7 +8,7 @@ import {
   CommentIcon,
   StarIcon,
   PublishIcon,
-  ArrowUpIcon,
+  UpArrowIcon,
 } from '../components/atoms';
 import styled from 'styled-components';
 import {Marked, Renderer} from '@ts-stack/markdown';
@@ -112,7 +112,7 @@ const Detail = () => {
           <GithubIcon />
         </SideBtn>
         <SideBtn onClick={() => window.scrollTo(0, 0)}>
-          <ArrowUpIcon />
+          <UpArrowIcon />
         </SideBtn>
       </SideBtns>
       <OtherRepoList>
