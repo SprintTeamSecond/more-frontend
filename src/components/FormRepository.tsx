@@ -43,12 +43,15 @@ export const FormRepository = () => {
     setFormData(submitData);
   };
 
-  const handleSelectClick: MouseEventHandler<HTMLElement> = useCallback((e) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest('.repos')) return;
+  const handleSelectClick: MouseEventHandler<HTMLElement> = useCallback(
+    (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.repos')) return;
 
-    setIsReposSelectShow(true);
-  }, []);
+      isReposSelectShow ? setIsReposSelectShow(false) : setIsReposSelectShow(true);
+    },
+    [isReposSelectShow],
+  );
 
   const handleSelectItemClick: MouseEventHandler<HTMLElement> = useCallback((e) => {
     const target = e.target as HTMLElement;

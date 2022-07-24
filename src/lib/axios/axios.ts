@@ -14,6 +14,6 @@ export const githubAxios = axios.create({
   baseURL: API_GITHUB,
   timeout: 3000,
   headers: {
-    Authorization: `token ${API_GITHUB_TOKEN}`,
+    Authorization: `Basic ${API_GITHUB_TOKEN}`,
   },
 });
