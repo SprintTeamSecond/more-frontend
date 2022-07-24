@@ -84,7 +84,6 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body{
-    background-color: #f5f7fa;
     font-family: -apple-system,system-ui,BlinkMacSystemFont,"SUIT-Regular","SUIT-Medium","SUIT-SemiBold","SUIT-Bold","SUIT-Heavy"
   }
   a {
@@ -104,11 +103,11 @@ export const GlobalStyle = createGlobalStyle`
   }
   img {
     display: block;
-    width: 100%;
-    height: 100%;
+    /* width: 100%;
+    height: 100%; */
   }
   input {
-     width: 100%;
+    width: 100%;
   }
   button {
     cursor: pointer;
