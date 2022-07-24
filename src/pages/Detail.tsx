@@ -16,10 +16,6 @@ import './Detail.css';
 import Typography from '../components/atoms/typography';
 import OtherRepo from '../components/atoms/otherRepo';
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const code = urlParams.get('code');
-
 const data = {
   _id: 'TEAMSTORMERS',
   title: '실시간 브레인스토밍 협업 플랫폼',
@@ -46,10 +42,22 @@ const otherRepoMock = [
 const Detail = () => {
   const readme = useReadme();
   const readmeHtml = Marked.parse(readme.toString());
+  const [owner, setOwner] = useState<string>();
+  const [repo, setRepo] = useState<string>();
+
+  const getInfoFromUrl = () => {
+    const currentUrl = window.location.href;
+    console.log(currentUrl.split('/').splice(4, 2));
+
+    setOwner(currentUrl.split('/').splice(4, 2)[0]);
+    setRepo(currentUrl.split('/').splice(4, 2)[1]);
+  };
 
   useEffect(() => {
     const container = document.getElementById('readme');
     container?.insertAdjacentHTML('afterend', readmeHtml);
+
+    getInfoFromUrl();
   });
 
   return (
@@ -109,10 +117,11 @@ const Detail = () => {
         <S.Readme id="readme"></S.Readme>
       </S.Container>
       <SideBtns>
-        <SideBtn onClick={() => (location.href = 'github.com')}>
+        <SideBtn onClick={() => (location.href = `https://github.com/${owner}`)}>
           <PublishIcon />
         </SideBtn>
-        <SideBtn onClick={() => (location.href = 'github.com')}>
+        <SideBtn
+          onClick={() => (location.href = `https://github.com/${owner}/${repo}`)}>
           <GithubIcon />
         </SideBtn>
         <SideBtn onClick={() => window.scrollTo(0, 0)}>
