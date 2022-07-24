@@ -64,11 +64,11 @@ export const FormRepository = () => {
     setRepoDesc(item.dataset.desc || '');
   }, []);
 
-  const handleCancleClick = () => {
+  const handleCancleClick = useCallback(() => {
     if (confirm('취소하시겠습니까?')) {
       navigate('/');
     }
-  };
+  }, []);
 
   useEffect(() => {
     formData &&
