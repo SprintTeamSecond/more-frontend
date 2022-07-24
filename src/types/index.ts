@@ -4,11 +4,28 @@ export interface UserEntity {
 
 export interface GithubUser extends UserEntity {
   github_email: string;
-  avatar: string;
+  avatar: any;
   name: string;
   url: string;
   introduce: string;
 }
+
+export type ProfileProps = {
+  email: string;
+  avatar: string;
+  name: string;
+  id: string;
+};
+
+export type LikeProps = {
+  _id: string;
+  title: string;
+  like: number;
+  description: string;
+  used_language: string[];
+  thumbnail: string;
+  created_at: string;
+};
 
 export interface PostEntity {
   id: string;

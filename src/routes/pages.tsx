@@ -1,4 +1,5 @@
 import Login from '../pages/Login';
+import Profile from '../pages/Profile';
 import Main from '../pages/Main';
 import Callback from '../pages/Callback';
 import UploadRepository from '../pages/UploadRepository';
@@ -23,6 +24,11 @@ const pageRoutes: {
     path: '/login',
     isPublic: true,
     element: <Login />,
+  },
+  {
+    path: '/profile',
+    isPublic: true,
+    element: <Profile />,
   },
   {
     path: '/post/new',
