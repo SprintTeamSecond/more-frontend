@@ -1,4 +1,5 @@
 import Login from '../pages/Login';
+import Profile from '../pages/Profile';
 import Main from '../pages/Main';
 import Callback from '../pages/Callback';
 import UploadRepository from '../pages/UploadRepository';
@@ -25,6 +26,13 @@ const pageRoutes: {
     element: <Login />,
   },
   {
+<<<<<<< HEAD
+=======
+     path: '/profile',
+    isPublic: true,
+    element: <Profile />,
+  }
+>>>>>>> a1b6a69737aac3be4bc695fe88684d6f20701cc4
     path: '/post/new',
     isPublic: true, // false가 맞는데, 개발편의상 개발중에만 true로 해놓을게요!
     element: <UploadRepository />,
