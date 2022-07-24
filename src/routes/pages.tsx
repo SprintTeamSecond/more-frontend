@@ -1,5 +1,5 @@
 import Login from '../pages/Login';
-import Landing from '../pages/Landing';
+import Main from '../pages/Main';
 import Callback from '../pages/Callback';
 import UploadRepository from '../pages/UploadRepository';
 import Detail from '../pages/Detail';
@@ -12,7 +12,7 @@ const pageRoutes: {
   {
     path: '/',
     isPublic: true,
-    element: <Landing />,
+    element: <Main />,
   },
   {
     path: '/callback',
