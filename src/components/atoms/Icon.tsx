@@ -93,6 +93,17 @@ export const ShareIcon = () => (
     <path
       d="M7.40962 8.5843L12.9971 6.07043M12.976 13.9663L6.88144 11.2355M18.75 15.625C18.75 17.3509 17.3509 18.75 15.625 18.75C13.8991 18.75 12.5 17.3509 12.5 15.625C12.5 13.8991 13.8991 12.5 15.625 12.5C17.3509 12.5 18.75 13.8991 18.75 15.625ZM18.75 4.375C18.75 6.10089 17.3509 7.5 15.625 7.5C13.8991 7.5 12.5 6.10089 12.5 4.375C12.5 2.64911 13.8991 1.25 15.625 1.25C17.3509 1.25 18.75 2.64911 18.75 4.375ZM7.5 9.375C7.5 11.1009 6.10089 12.5 4.375 12.5C2.64911 12.5 1.25 11.1009 1.25 9.375C1.25 7.64911 2.64911 6.25 4.375 6.25C6.10089 6.25 7.5 7.64911 7.5 9.375Z"
       stroke="#4D4D4D"
+
+export const DownArrowIcon = () => (
+  <svg
+    width="16"
+    height="8"
+    viewBox="0 0 16 8"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M15 1L8 7L1 0.999999"
+      stroke="#212121"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -110,6 +121,17 @@ export const ArrowUpIcon = () => (
     <path
       d="M12 22.5V1.5M12 1.5L1.5 10.5M12 1.5L22.5 10.5"
       stroke="#89939E"
+
+export const UpArrowIcon = () => (
+  <svg
+    width="16"
+    height="8"
+    viewBox="0 0 16 8"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M1 7L8 1L15 7"
+      stroke="#212121"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
