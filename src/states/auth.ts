@@ -1,6 +1,6 @@
 import {atom, selector} from 'recoil';
 
-export const authState = atom({
+export const authState = atom<boolean>({
   key: 'auth',
   default: false,
 });

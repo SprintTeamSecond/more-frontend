@@ -1,11 +1,12 @@
 import styled, {DefaultTheme} from 'styled-components';
 
 type TypographyProps = {
-  size?: '12' | '13' | '14' | '16' | '18' | '24';
-  weight?: '500' | '700';
+  size?: '12' | '13' | '14' | '16' | '18' | '24' | '27';
+  weight?: '500' | '700' | '900';
   color?: string;
   marginBottom?: number;
   marginTop?: number;
+  lineHeight?: '34';
   theme: DefaultTheme;
 };
 
@@ -15,6 +16,7 @@ const Typography = styled.p<TypographyProps>`
   color: ${(props) => props.color || 'black'};
   margin-bottom: ${(props) => props.marginBottom || '0'}px;
   margin-top: ${(props) => props.marginTop || '0'}px;
+  line-height: ${({lineHeight}) => (lineHeight ? lineHeight + 'px' : null)};
 `;
 
 export default Typography;
