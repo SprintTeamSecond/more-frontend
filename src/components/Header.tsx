@@ -36,7 +36,7 @@ const Header: React.FunctionComponent = () => {
               borderRadius={'14'}
             />
             <Button type="submit">
-              <SearchIcon className="searchIcon" />
+              <SearchIcon />
             </Button>
           </form>
           {isLoggedIn ? (
