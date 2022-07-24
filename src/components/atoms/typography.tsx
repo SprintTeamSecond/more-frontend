@@ -1,12 +1,12 @@
 import styled, {DefaultTheme} from 'styled-components';
 
 type TypographyProps = {
-  size?: '12' | '13' | '14' | '16' | '18' | '20' | '24' | '27' | '42';
+  size?: '12' | '13' | '14' | '16' | '18' | '20' | '22' | '24' | '27' | '28' | '42';
   weight?: '400' | '500' | '700' | '900';
   color?: string;
   marginBottom?: number;
   marginTop?: number;
-  lineHeight?: '32' | '34';
+  lineHeight?: '24' | '32' | '34';
   theme: DefaultTheme;
 };
 

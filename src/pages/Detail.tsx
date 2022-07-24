@@ -14,6 +14,7 @@ import styled from 'styled-components';
 import {Marked, Renderer} from '@ts-stack/markdown';
 import './Detail.css';
 import Typography from '../components/atoms/typography';
+import OtherRepo from '../components/atoms/otherRepo';
 
 const data = {
   _id: 'TEAMSTORMERS',
@@ -24,6 +25,19 @@ const data = {
   thumbnail: null,
   created_at: '2022.07.13',
 };
+
+const otherRepoMock = [
+  {
+    title: '글 제목은 한줄만 나와요 넘어가면 점이 생겨요 이렇게 긴 글제목은 말이죠',
+    subTitle:
+      '한 줄 소개 입니다. 한 줄 소개 입니다. 한 줄 소개는 2줄을 넘어가지 않습니다. 2줄을 넘어가면 점이 생겨요 언제 두 줄이 넘어가는 거죠? 언제 두 줄이 넘어가는 거죠? 언제 두 줄이 넘어가는 거죠?',
+  },
+  {
+    title: '글 제목은 한줄만 나와요 넘어가면 점이 생겨요 이렇게 긴 글제목은 말이죠',
+    subTitle:
+      '한 줄 소개 입니다. 한 줄 소개 입니다. 한 줄 소개는 2줄을 넘어가지 않습니다. 2줄을 넘어가면 점이 생겨요',
+  },
+];
 
 const Detail = () => {
   const readme = useReadme();
@@ -101,6 +115,13 @@ const Detail = () => {
           <ArrowUpIcon />
         </SideBtn>
       </SideBtns>
+      <OtherRepoList>
+        <Typography size="28" marginBottom={48}>
+          다른 레포지토리 보러 가기
+        </Typography>
+        <OtherRepo data={otherRepoMock[0]} />
+        <OtherRepo data={otherRepoMock[1]} />
+      </OtherRepoList>
     </Container>
   );
 };
@@ -109,9 +130,7 @@ export default Detail;
 
 const Container = styled.div`
   margin-top: 111px;
-
-  * {
-  }
+  max-width: 786px;
 `;
 const RepoInfo = styled.div`
   position: relative;
@@ -145,7 +164,7 @@ const PostInfo = styled.div`
 const SideBtns = styled.div`
   position: fixed;
   bottom: 42px;
-  right: 12%;
+  right: 18%;
 `;
 const SideBtn = styled.div`
   display: flex;
@@ -160,9 +179,14 @@ const SideBtn = styled.div`
   cursor: pointer;
 `;
 
+const OtherRepoList = styled.div`
+  margin-bottom: 130px;
+`;
+
 const S = {
   Container: styled.div`
     position: relative;
+    margin-bottom: 160px;
   `,
   Title: styled.h1`
     display: block;
