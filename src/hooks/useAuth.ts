@@ -12,7 +12,6 @@ export const useAuth = () => {
     setIsLoggedIn(true);
     setUserData(data);
   };
-
   React.useEffect(() => {
     const token = window.localStorage.getItem('ACCESS_TOKEN');
     if (token) {
@@ -20,4 +19,5 @@ export const useAuth = () => {
     }
   }, []);
   return {isLoggedIn, userData};
+  
 };

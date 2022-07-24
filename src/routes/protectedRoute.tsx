@@ -5,7 +5,6 @@ interface ProtectedRouteProps {
   isAuthenticated: boolean;
   children: JSX.Element;
 }
-
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   isAuthenticated,
   children,
@@ -14,10 +13,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const {pathname} = location;
   if (!isAuthenticated) {
     navigate('/login');
-  } else if (isAuthenticated && pathname === '/login') {
-    navigate('/');
   }
   return children;
 };
-
 export default ProtectedRoute;
