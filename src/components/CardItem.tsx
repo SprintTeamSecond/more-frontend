@@ -94,6 +94,21 @@ const S = {
     font-style: normal;
 
     overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+      animation: postHover 0.2s;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes postHover {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-10px);
+      }
+    }
 
     .thumbnail {
       width: 100%;
