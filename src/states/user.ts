@@ -1,18 +1,14 @@
-import {atom} from 'recoil';
+import {GithubUser} from './../types/index';
+import {atom, RecoilValue} from 'recoil';
 
-export interface userStateType {
-  id?: number | null;
-  username?: string | null;
-  avatar?: string | null;
-  email?: string | null;
-}
-
-export const userState = atom<userStateType>({
+export const userState = atom<GithubUser>({
   key: 'userState',
   default: {
-    id: null,
-    username: null,
-    avatar: null,
-    email: null,
+    id: '',
+    name: '',
+    url: '',
+    introduce: '',
+    github_email: '',
+    avatar: '',
   },
 });
