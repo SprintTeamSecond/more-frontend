@@ -62,79 +62,82 @@ const Detail = () => {
 
   return (
     <Container>
-      <RepoInfo>
-        <div className="postInfo">
-          <Typography size="16" lineHeight="34">
-            {data.created_at}
+      <InnerContainer>
+        <RepoInfo>
+          <div className="postInfo">
+            <Typography size="16" lineHeight="34">
+              {data.created_at}
+            </Typography>
+            <IconWrapper>
+              <div>
+                <ShareIcon />
+              </div>
+              <div>공유하기</div>
+            </IconWrapper>
+          </div>
+          <Title>
+            <Typography size="42" weight="700">
+              {data.title}
+            </Typography>
+          </Title>
+          <Typography size="20" weight="400">
+            {data.description}
           </Typography>
-          <IconWrapper>
-            <div>
-              <ShareIcon />
+          <PostInfo>
+            <div className="postInfoLeft">
+              <IconWrapper>
+                <UserProfileIcon />
+                <Typography>{data._id}</Typography>
+              </IconWrapper>
+              <IconWrapper>
+                <LikedIcon />
+                <Typography>{data.like}</Typography>
+              </IconWrapper>
+              <IconWrapper>
+                <CommentIcon />
+              </IconWrapper>
             </div>
-            <div>공유하기</div>
-          </IconWrapper>
-        </div>
-        <Title>
-          <Typography size="42" weight="700">
-            {data.title}
+            <div>
+              <IconWrapper
+                style={{
+                  background: '#F5F7FA;',
+                  borderRadius: '16px',
+                  width: '266px',
+                  height: '48px',
+                  padding: '8px 12px',
+                }}>
+                <StarIcon />
+                <Typography color="#4D4D4D">
+                  Github에서 {data.like} star를 받았어요
+                </Typography>
+              </IconWrapper>
+            </div>
+          </PostInfo>
+        </RepoInfo>
+        <hr />
+        <S.Container className="readme-body">
+          <S.Readme id="readme"></S.Readme>
+        </S.Container>
+        <SideBtns>
+          <SideBtn onClick={() => (location.href = `https://github.com/${owner}`)}>
+            <PublishIcon />
+          </SideBtn>
+          <SideBtn
+            onClick={() => (location.href = `https://github.com/${owner}/${repo}`)}>
+            <GithubIcon />
+          </SideBtn>
+          <SideBtn onClick={() => window.scrollTo(0, 0)}>
+            <UpArrowIcon />
+          </SideBtn>
+        </SideBtns>
+        <OtherRepoList>
+          <Typography size="28" marginBottom={48}>
+            다른 레포지토리 보러 가기
           </Typography>
-        </Title>
-        <Typography size="20" weight="400">
-          {data.description}
-        </Typography>
-        <PostInfo>
-          <div className="postInfoLeft">
-            <IconWrapper>
-              <UserProfileIcon />
-              <Typography>{data._id}</Typography>
-            </IconWrapper>
-            <IconWrapper>
-              <LikedIcon />
-              <Typography>{data.like}</Typography>
-            </IconWrapper>
-            <IconWrapper>
-              <CommentIcon />
-            </IconWrapper>
-          </div>
-          <div>
-            <IconWrapper
-              style={{
-                background: '#F5F7FA;',
-                width: '266px',
-                height: '48px',
-                padding: '8px 12px',
-              }}>
-              <StarIcon />
-              <Typography color="#4D4D4D">
-                Github에서 {data.like} star를 받았어요
-              </Typography>
-            </IconWrapper>
-          </div>
-        </PostInfo>
-      </RepoInfo>
-      <hr />
-      <S.Container className="readme-body">
-        <S.Readme id="readme"></S.Readme>
-      </S.Container>
-      <SideBtns>
-        <SideBtn onClick={() => (location.href = `https://github.com/${owner}`)}>
-          <PublishIcon />
-        </SideBtn>
-        <SideBtn
-          onClick={() => (location.href = `https://github.com/${owner}/${repo}`)}>
-          <GithubIcon />
-        </SideBtn>
-        <SideBtn onClick={() => window.scrollTo(0, 0)}>
-          <UpArrowIcon />
-        </SideBtn>
-      </SideBtns>
-      <OtherRepoList>
-        <Typography size="28" marginBottom={48}>
-          다른 레포지토리 보러 가기
-        </Typography>
-        <OtherRepo data={otherRepoMock[0]} />
-        <OtherRepo data={otherRepoMock[1]} />
-      </OtherRepoList>
+          <OtherRepo data={otherRepoMock[0]} />
+          <OtherRepo data={otherRepoMock[1]} />
+        </OtherRepoList>
+      </InnerContainer>
     </Container>
   );
 };
@@ -143,7 +146,10 @@ export default Detail;
 
 const Container = styled.div`
   margin-top: 111px;
-  max-width: 786px;
+`;
+const InnerContainer = styled.div`
+  width: 85%;
+  margin: 0 auto;
 `;
 const RepoInfo = styled.div`
   position: relative;
@@ -177,7 +183,7 @@ const PostInfo = styled.div`
 const SideBtns = styled.div`
   position: fixed;
   bottom: 42px;
-  right: 18%;
+  right: 12%;
 `;
 const SideBtn = styled.div`
   display: flex;
