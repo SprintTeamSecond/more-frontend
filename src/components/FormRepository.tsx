@@ -65,7 +65,9 @@ export const FormRepository = () => {
   }, []);
 
   const handleCancleClick = () => {
-    navigate('/');
+    if (confirm('취소하시겠습니까?')) {
+      navigate('/');
+    }
   };
 
   useEffect(() => {
@@ -93,18 +95,18 @@ export const FormRepository = () => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <label>
+    <S.Form onSubmit={handleSubmit(onSubmitHandler)}>
+      <S.TitleContainer>
         <S.Title
           placeholder="제목을 써주세요"
           {...register('title', {required: true, maxLength: 30})}></S.Title>
-      </label>
-      <label>
+      </S.TitleContainer>
+      <S.DescContainer>
         <S.Desc
           placeholder="내 레파지토리의 한 줄 소개를 작성해주세요"
           {...register('description', {required: false})}></S.Desc>
-      </label>
-      <div>
+      </S.DescContainer>
+      <S.SelectorsContainer>
         <S.DropDownTitle onClick={handleSelectClick} className="repos">
           {!RepoTitle && !RepoDesc ? (
             <>
@@ -142,18 +144,34 @@ export const FormRepository = () => {
             ))}
           </S.DropDownList>
         )}
-      </div>
+      </S.SelectorsContainer>
       <S.Fotter>
         <S.Buttons>
           <S.ButtonCancle onClick={handleCancleClick}>작성 취소하기</S.ButtonCancle>
           <S.ButtonSubmit>올리기</S.ButtonSubmit>
         </S.Buttons>
       </S.Fotter>
-    </form>
+    </S.Form>
   );
 };
 
 const S = {
+  Form: styled.form`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 100px 0;
+  `,
+  TitleContainer: styled.label`
+    flex-grow: 1;
+  `,
+  DescContainer: styled.label`
+    flex-grow: 1;
+  `,
+  SelectorsContainer: styled.div`
+    flex-grow: 6;
+    position: relative;
+  `,
   Title: styled.input`
     font-size: 42px;
     font-weight: 400;
@@ -161,7 +179,6 @@ const S = {
     letter-spacing: 0em;
     text-align: left;
     color: ${(props) => props.theme.colors.neutral.BLACK};
-    margin-bottom: 56px;
 
     &::placeholder {
       color: ${(props) => props.theme.colors.neutral.LIGHT_GREY};
@@ -174,7 +191,6 @@ const S = {
     letter-spacing: 0em;
     text-align: left;
     color: ${(props) => props.theme.colors.neutral.BLACK};
-    margin-bottom: 77.5px;
 
     &::placeholder {
       color: ${(props) => props.theme.colors.neutral.LIGHT_GREY};
@@ -225,12 +241,11 @@ const S = {
   `,
   DropDownList: styled.ul`
     z-index: 1;
-    position: relative;
+    position: absolute;
     background-color: ${(props) => props.theme.colors.neutral.WHITE};
-    position: relative;
     display: flex;
     flex-direction: column;
-    height: 396px;
+    height: 280px;
     width: 100%;
     overflow-y: scroll;
     border: 1px solid #abbed1;
@@ -281,7 +296,7 @@ const S = {
     height: 48px;
     background-color: ${(props) => props.theme.colors.neutral.SILVER};
     border-radius: 8px;
-    border-color: ${(props) => props.theme.colors.neutral.LIGHT_GREY_BLUE};
+    border: 2px solid ${(props) => props.theme.colors.neutral.LIGHT_GREY_BLUE};
     color: ${(props) => props.theme.colors.neutral.LIGHT_GREY};
   `,
   ButtonSubmit: styled.button`
@@ -289,7 +304,7 @@ const S = {
     height: 48px;
     background-color: ${(props) => props.theme.colors.primary.MEDIUM_BLUE};
     border-radius: 8px;
-    border-color: ${(props) => props.theme.colors.primary.MEDIUM_BLUE};
+    border: 2px solid ${(props) => props.theme.colors.primary.MEDIUM_BLUE};
     color: ${(props) => props.theme.colors.neutral.WHITE};
   `,
 };
