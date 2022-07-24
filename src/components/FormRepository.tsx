@@ -116,8 +116,11 @@ export const FormRepository = () => {
             </>
           ) : (
             <>
-              <S.RepoTitle>{RepoTitle && RepoTitle}</S.RepoTitle>
-              <S.RepoDesc>{RepoDesc && RepoDesc}</S.RepoDesc>
+              <S.DropDownTitleLeft>
+                <GithubIcon />
+                <S.RepoTitle>{RepoTitle && RepoTitle}</S.RepoTitle>
+                <S.RepoDesc>{RepoDesc && RepoDesc}</S.RepoDesc>
+              </S.DropDownTitleLeft>
               <DownArrowIcon />
             </>
           )}
