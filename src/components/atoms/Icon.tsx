@@ -93,9 +93,9 @@ export const DownArrowIcon = () => (
     <path
       d="M15 1L8 7L1 0.999999"
       stroke="black"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
