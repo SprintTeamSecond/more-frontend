@@ -1,15 +1,18 @@
-import Typography from '../components/atoms/typography';
+import styled from 'styled-components';
 import {FormRepository} from '../components/FormRepository';
 
 const UploadRepository = () => {
   return (
-    <>
-      <Typography size="13" marginBottom={10}>
-        레포 업로드 페이지입니다
-      </Typography>
+    <S.Layout>
       <FormRepository />
-    </>
+    </S.Layout>
   );
 };
 
 export default UploadRepository;
+
+const S = {
+  Layout: styled.div`
+    margin: 120px 0;
+  `,
+};
