@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import Typography from './atoms/typography';
 import {UserIcon, PostIcon, SearchIcon} from './atoms/Icon';
 import {Input, Button} from './atoms';
-
 import {useAuth} from '../hooks';
-
 import {useTheme} from 'styled-components';
 
 const Header: React.FunctionComponent = () => {
@@ -100,14 +98,14 @@ const S = {
       }
       .search-section {
         display: flex;
-        flex: 3;
+        flex: 1;
         align-items: center;
         position: relative;
         background: #eef5fc;
       }
       .user-section {
         display: flex;
-        flex: 1;
+        justify-content: flex-end;
         flex-wrap: wrap;
         gap: 12px;
         & > * {

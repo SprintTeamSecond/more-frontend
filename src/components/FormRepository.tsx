@@ -4,6 +4,7 @@ import {useForm, SubmitHandler} from 'react-hook-form';
 import {useAuth} from '../hooks';
 import styled from 'styled-components';
 import {fetch} from '../lib/axios/uploadRepository';
+import {GithubIcon, DownArrowIcon, UpArrowIcon} from '../components/atoms/Icon';
 
 type FormData = {
   userName: string;
@@ -26,11 +27,12 @@ type UserRepo = {
 
 export const FormRepository = () => {
   const navigate = useNavigate();
-  const {fetchUserRepos, fetchFormData} = fetch();
   const {userData} = useAuth();
+  const {fetchUserRepos, fetchFormData} = fetch(); //요기서 서버 api 통신하는 함수 따로 빼놨어요
 
-  const [repos, setRepos] = useState<UserRepo[]>();
-  const [formData, setFormData] = useState<FormInput>();
+  const [repos, setRepos] = useState<UserRepo[]>(); //이거는 깃헙api로 레포목록 가져와서 저장하는 역할
+  const [formData, setFormData] = useState<FormInput>(); //이거는 제목, 한줄설명 input 저장
+
   const [isReposSelectShow, setIsReposSelectShow] = useState(false);
   const [repoUrl, setRepoUrl] = useState<string>('');
   const [RepoTitle, setRepoTitle] = useState<string>('');
@@ -58,6 +60,10 @@ export const FormRepository = () => {
     setRepoTitle(item.dataset.title || '');
     setRepoDesc(item.dataset.desc || '');
   }, []);
+
+  const handleCancleClick = () => {
+    navigate('/');
+  };
 
   useEffect(() => {
     formData &&
@@ -98,11 +104,18 @@ export const FormRepository = () => {
       <div>
         <S.DropDownTitle onClick={handleSelectClick} className="repos">
           {!RepoTitle && !RepoDesc ? (
-            <S.RepoTitle>{`내 레파지토리 가져오기`}</S.RepoTitle>
+            <>
+              <S.DropDownTitleLeft>
+                <GithubIcon />
+                <S.RepoTitle>{`내 레파지토리 가져오기`}</S.RepoTitle>
+              </S.DropDownTitleLeft>
+              {isReposSelectShow ? <UpArrowIcon /> : <DownArrowIcon />}
+            </>
           ) : (
             <>
               <S.RepoTitle>{RepoTitle && RepoTitle}</S.RepoTitle>
               <S.RepoDesc>{RepoDesc && RepoDesc}</S.RepoDesc>
+              <DownArrowIcon />
             </>
           )}
         </S.DropDownTitle>
@@ -124,10 +137,12 @@ export const FormRepository = () => {
           </S.DropDownList>
         )}
       </div>
-      <S.Buttons>
-        <button>작성 취소하기</button>
-        <button>올리기</button>
-      </S.Buttons>
+      <S.Fotter>
+        <S.Buttons>
+          <S.ButtonCancle onClick={handleCancleClick}>작성 취소하기</S.ButtonCancle>
+          <S.ButtonSubmit>올리기</S.ButtonSubmit>
+        </S.Buttons>
+      </S.Fotter>
     </form>
   );
 };
@@ -191,12 +206,21 @@ const S = {
     margin: 5px 0;
     padding: 13px 0;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: ${(props) => props.theme.colors.neutral.DARK_GREY};
     border-style: none;
     border-bottom: 1px solid ${(props) => props.theme.colors.neutral.GREY_BLUE};
-    gap: 8px;
+  `,
+  DropDownTitleLeft: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 5px;
   `,
   DropDownList: styled.ul`
+    z-index: 1;
+    position: relative;
+    background-color: ${(props) => props.theme.colors.neutral.WHITE};
     position: relative;
     display: flex;
     flex-direction: column;
@@ -220,7 +244,7 @@ const S = {
     width: 313px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow-x: hidden;
+    overflow: hidden;
   `,
   RepoDate: styled.span`
     font-weight: 400;
@@ -228,14 +252,38 @@ const S = {
     line-height: 100%;
     margin-left: 10px;
   `,
-  Buttons: styled.div`
+  Fotter: styled.div`
     position: fixed;
     height: 112px;
     bottom: 0;
     left: 0;
     width: 100%;
-    /* background-color: ${(props) => props.theme.colors.neutral.SILVER}; */
-    background-color: silver;
+    background-color: ${(props) => props.theme.colors.neutral.SILVER};
     display: flex;
+    justify-content: center;
+    align-items: center;
+  `,
+  Buttons: styled.div`
+    width: 80%;
+    display: flex;
+    justify-content: right;
+    gap: 16px;
+  `,
+
+  ButtonCancle: styled.button`
+    width: 157px;
+    height: 48px;
+    background-color: ${(props) => props.theme.colors.neutral.SILVER};
+    border-radius: 8px;
+    border-color: ${(props) => props.theme.colors.neutral.LIGHT_GREY_BLUE};
+    color: ${(props) => props.theme.colors.neutral.LIGHT_GREY};
+  `,
+  ButtonSubmit: styled.button`
+    width: 157px;
+    height: 48px;
+    background-color: ${(props) => props.theme.colors.primary.MEDIUM_BLUE};
+    border-radius: 8px;
+    border-color: ${(props) => props.theme.colors.primary.MEDIUM_BLUE};
+    color: ${(props) => props.theme.colors.neutral.WHITE};
   `,
 };
