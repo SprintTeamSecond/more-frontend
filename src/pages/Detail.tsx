@@ -1,5 +1,6 @@
 import React, {SetStateAction, useEffect, useState} from 'react';
 import useReadme from '../hooks/useReadme';
+import {Utterances} from 'utterances-react-component';
 import {
   GithubIcon,
   ShareIcon,
@@ -58,7 +59,7 @@ const Detail = () => {
     container?.insertAdjacentHTML('afterend', readmeHtml);
 
     getInfoFromUrl();
-  });
+  }, [readme]);
 
   return (
     <Container>
@@ -130,6 +131,13 @@ const Detail = () => {
             <UpArrowIcon />
           </SideBtn>
         </SideBtns>
+        <hr />
+        <Utterances
+          repo="SprintTeamSecond/comment"
+          theme="github-light"
+          issueTerm="pathname"
+        />
+
         <OtherRepoList>
           <Typography size="28" marginBottom={48}>
             다른 레포지토리 보러 가기
@@ -199,13 +207,13 @@ const SideBtn = styled.div`
 `;
 
 const OtherRepoList = styled.div`
+  margin-top: 160px;
   margin-bottom: 130px;
 `;
 
 const S = {
   Container: styled.div`
     position: relative;
-    margin-bottom: 160px;
   `,
   Title: styled.h1`
     display: block;
