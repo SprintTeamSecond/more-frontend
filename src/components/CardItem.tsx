@@ -57,14 +57,14 @@ const CardItem = ({data}: CardProps) => {
           <div className="userInfo">
             <UserIcon />
             <Typography size="16" weight="400" color="#4D4D4D">
-              {data.author.id}
+              {data?.author.id}
             </Typography>
           </div>
           <div className="likeComment">
             <div className="likeBox">
               <LikeIcon />
               <Typography size="16" weight="400" color="#4D4D4D">
-                {data.like}
+                {data?.like}
               </Typography>
             </div>
             <div className="commentBox">
