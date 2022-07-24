@@ -3,121 +3,117 @@ import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import Typography from './atoms/typography';
 import {UserIcon, PostIcon, SearchIcon} from './atoms/Icon';
-interface HeaderProps {
-  children?: React.ReactNode;
-}
+import {Input, Button} from './atoms';
 
-import {useRecoilState, useRecoilValue} from 'recoil';
-import {authState} from '../states/auth';
+import {useAuth} from '../hooks';
 
-const Header: React.FunctionComponent<HeaderProps> = ({children}) => {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
+import {useTheme} from 'styled-components';
+
+const Header: React.FunctionComponent = () => {
+  const {isLoggedIn} = useAuth();
   const navigate = useNavigate();
+  const {
+    colors: {
+      primary: {MEDIUM_BLUE, LIGHT_BLUE},
+    },
+  } = useTheme();
   return (
-    <div
-      style={{
-        backgroundColor: '#fff',
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-      }}>
+    <S.Wrapper>
       <S.Container>
-        <span
-          className="left-section_logo"
-          onClick={() => navigate('/', {replace: true})}>
-          MO:RE
-        </span>
+        <div className="left-section">
+          <Typography
+            weight="900"
+            size="27"
+            lineHeight="34"
+            onClick={() => navigate('/', {replace: true})}>
+            MO:RE
+          </Typography>
+        </div>
         <div className="right-section">
-          <form
-            className="right-search-section"
-            onSubmit={(e) => e.preventDefault()}>
-            <input placeholder="어떤 기술스택의 레포지토리를 찾으시나요?" />
-            <button type="submit">
+          <form className="search-section" onSubmit={(e) => e.preventDefault()}>
+            <Input
+              padding={'14.5'}
+              placeholder="어떤 기술스택의 레포지토리를 찾으시나요?"
+              backgroundColor={LIGHT_BLUE}
+              borderRadius={'14'}
+            />
+            <Button type="submit">
               <SearchIcon className="searchIcon" />
-            </button>
+            </Button>
           </form>
           {isLoggedIn ? (
-            <section className="right-user-section">
+            <section className="user-section">
               <UserIcon />
               <PostIcon />
             </section>
           ) : (
-            <section className="right-login-section">
-              <button onClick={() => navigate('/login', {replace: true})}>
+            <section className="login-section">
+              <Button
+                padding={'10px 16px'}
+                backgroundColor={MEDIUM_BLUE}
+                borderColor={MEDIUM_BLUE}
+                borderRadius={'24'}
+                onClick={() => navigate('/login', {replace: true})}>
                 <Typography size="16" weight="700" color="#FFFFFF">
                   LOG IN
                 </Typography>
-              </button>
+              </Button>
             </section>
           )}
         </div>
       </S.Container>
-    </div>
+    </S.Wrapper>
   );
 };
 
 const S = {
+  Wrapper: styled.div`
+    background-color: '#fff';
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 2px 11px rgba(113, 113, 113, 0.1);
+  `,
   Container: styled.div`
     display: flex;
+    flex: 0.6;
+    align-items: center;
     justify-content: space-between;
-    width: 62%;
-    padding: 22px;
-
+    padding: 22px 0;
+    .left-section {
+      display: flex;
+      flex: 1;
+      & > p {
+        cursor: pointer;
+      }
+    }
     .right-section {
       display: flex;
+      flex: 1;
+      justify-content: flex-end;
       align-items: center;
       & > section {
         margin-left: 24px;
       }
-      .right-search-section {
+      & button {
+        cursor: pointer;
+      }
+      .search-section {
         display: flex;
+        flex: 3;
         align-items: center;
-        padding: 14.5px;
-        width: 598px;
-        height: 44px;
         position: relative;
         background: #eef5fc;
-        border-radius: 8px;
-        input {
-          width: 100%;
-        }
       }
-      .right-login-section button {
+      .user-section {
         display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-
-        cursor: pointer;
-
-        width: 88px;
-        height: 36px;
-
-        background: #0671e0;
-
-        border: 1px solid #0671e0;
-        border-radius: 24px;
-      }
-      .right-user-section {
-        display: flex;
+        flex: 1;
         flex-wrap: wrap;
         gap: 12px;
         & > * {
           cursor: pointer;
         }
       }
-    }
-    .left-section_logo {
-      display: flex;
-      align-items: center;
-      font-family: 'SUIT-Heavy';
-      font-style: normal;
-      font-weight: 900;
-      font-size: 27px;
-      line-height: 34px;
-
-      cursor: pointer;
     }
   `,
 };
