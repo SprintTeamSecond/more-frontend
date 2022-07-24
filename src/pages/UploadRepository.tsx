@@ -13,8 +13,6 @@ export default UploadRepository;
 
 const S = {
   Layout: styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    margin: 120px 0;
   `,
 };
