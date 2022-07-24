@@ -26,10 +26,11 @@ const pageRoutes: {
     element: <Login />,
   },
   {
-     path: '/profile',
+    path: '/profile',
     isPublic: true,
     element: <Profile />,
-  }
+  },
+  {
     path: '/post/new',
     isPublic: true, // false가 맞는데, 개발편의상 개발중에만 true로 해놓을게요!
     element: <UploadRepository />,

@@ -7,13 +7,15 @@ import useProfile from '../hook/useProfile';
 import styled, {useTheme} from 'styled-components';
 import {UserIcon, Button} from '../components/atoms';
 import Typography from '../components/atoms/typography';
-import {gray000} from '@class101/ui/dist/core/Colors';
-import {gray200} from '@class101/ui/dist/core/DarkColors';
+import {Tab} from '../components';
+import {keyboard} from '@testing-library/user-event/dist/keyboard';
+import {Tabui} from '../components/Tabui';
 
 const Profile = () => {
   const {
     colors: {
-      neutral: {BLACK, DARK_GREY, GREY_BLUE, WHITE},
+      neutral: {BLACK, DARK_GREY, GREY_BLUE, WHITE, LIGHT_GREY_BLUE},
+      primary: {MEDIUM_BLUE},
     },
   } = useTheme();
 
@@ -51,6 +53,29 @@ const Profile = () => {
             height={'32'}>
             로그아웃
           </Button>
+        </S.Avatar>
+      </S.ProfileContainer>
+      <S.ProfileContainer>
+        <Tabui />
+      </S.ProfileContainer>
+      <S.ProfileContainer>
+        <S.Avatar className="introduce">
+          <Typography size={'18'} weight={'500'} marginBottom={1000}>
+            아직 레포지토리를 올리지 않았어요
+            <br />
+            <br /> 내 레포지토리를 자랑해볼까요?
+            <br />
+            <br />
+            <Button
+              backgroundColor={MEDIUM_BLUE}
+              borderRadius={'25'}
+              borderColor={GREY_BLUE}
+              color={WHITE}
+              width={'254'}
+              height={'50'}>
+              지금 올리러 가기
+            </Button>
+          </Typography>
         </S.Avatar>
       </S.ProfileContainer>
     </>
