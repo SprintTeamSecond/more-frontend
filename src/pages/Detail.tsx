@@ -16,6 +16,10 @@ import './Detail.css';
 import Typography from '../components/atoms/typography';
 import OtherRepo from '../components/atoms/otherRepo';
 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const code = urlParams.get('code');
+
 const data = {
   _id: 'TEAMSTORMERS',
   title: '실시간 브레인스토밍 협업 플랫폼',
