@@ -108,7 +108,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%; */
   }
   input {
-     width: 100%;
+    width: 100%;
   }
   button {
     cursor: pointer;
