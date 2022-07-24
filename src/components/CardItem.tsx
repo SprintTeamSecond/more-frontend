@@ -42,16 +42,16 @@ const CardItem = ({data}: CardProps) => {
       <div className="contentsContainer">
         <div className="titleBox">
           <Typography size="22" weight="700" color="#212121">
-            {renderTextMaxLength(data.title, 33)}
+            {renderTextMaxLength(data.title, 26)}
           </Typography>
         </div>
         <div className="descBox">
           <Typography size="16" weight="400" color="#4d4d4d">
-            {renderTextMaxLength(data.description, 46)}
+            {renderTextMaxLength(data.description, 40)}
           </Typography>
         </div>
         <section className="languageTagSection">
-          {tagToIcon(data.used_language)}
+          {data.hashtag && tagToIcon(data.hashtag)}
         </section>
         <section className="bottomSection">
           <div className="userInfo">
@@ -84,7 +84,7 @@ export default CardItem;
 
 const S = {
   Container: styled.div`
-    width: 378px;
+    width: 100%;
     height: 490px;
     background-color: #ffffff;
     box-shadow: 0px 3px 11px rgba(9, 33, 57, 0.1);
@@ -107,12 +107,12 @@ const S = {
       padding: 24px;
     }
     .titleBox {
-      width: 330px;
+      width: 100%;
       line-height: 140%;
       margin-bottom: 12px;
     }
     .descBox {
-      width: 330px;
+      width: 100%;
       height: 44px;
       line-height: 140%;
       margin-bottom: 24px;
