@@ -1,27 +1,29 @@
 import * as React from 'react';
 import qs from 'qs';
 import styled from 'styled-components';
+import GithubRepository from '../repository/github';
+import {useNavigate} from 'react-router-dom';
 
-import {getAccessTokenParams} from '../types/Oauth';
-import {GET_GITHUB_ACCESS_TOKEN} from '../repository';
-
-const getAccessToken = async (params: getAccessTokenParams) => {
-  return await GET_GITHUB_ACCESS_TOKEN(params);
-};
-
+import {useRecoilState} from 'recoil';
+import {userState, authState} from '../states';
 const Callback = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
+
   React.useEffect(() => {
     const getGithubAccessToken = async () => {
       const {code} = qs.parse(location.search, {
         ignoreQueryPrefix: true,
       });
-      const params: getAccessTokenParams = {
-        client_id: process.env.REACT_APP_GITHUB_CLIENT_ID as string,
-        client_secret: process.env.REACT_APP_GITHUB_SECRET_KEY as string,
-        code,
-      };
-      const data = await GET_GITHUB_ACCESS_TOKEN(params);
-      console.log(data);
+      const token = await GithubRepository.getAccessToken(code);
+      localStorage.setItem('ACCESS_TOKEN', token);
+      const {data} = await GithubRepository.getUser(token);
+      if (data) {
+        setUser(data);
+        setIsLoggedIn(true);
+        navigate('/');
+      }
     };
     try {
       getGithubAccessToken();
