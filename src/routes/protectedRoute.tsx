@@ -5,7 +5,6 @@ interface ProtectedRouteProps {
   isAuthenticated: boolean;
   children: JSX.Element;
 }
-
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   isAuthenticated,
   children,
@@ -19,5 +18,4 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }
   return children;
 };
-
 export default ProtectedRoute;

@@ -6,6 +6,8 @@ type ButtonProps = {
   paddingRight?: string | number;
   paddingBottom?: string | number;
   paddingLeft?: string | number;
+  width?: string | number;
+  height?: string | number;
 
   backgroundColor?: string;
 
@@ -14,6 +16,8 @@ type ButtonProps = {
 };
 
 export const Button = styled.button<ButtonProps>`
+  width: ${({width}) => (width ? width + 'px' : null)};
+  height: ${({height}) => (height ? height + 'px' : null)};
   padding: ${({padding}) => (padding ? padding : null)};
   padding-top: ${({paddingTop}) => (paddingTop ? paddingTop + 'px' : null)};
   padding-right: ${({paddingRight}) => (paddingRight ? paddingRight + 'px' : null)};
