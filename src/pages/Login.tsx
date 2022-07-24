@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import {GithubIcon} from '../components/atoms/Icon';
+import styled, {useTheme} from 'styled-components';
+import {GithubIcon, Button} from '../components/atoms';
 import Typography from '../components/atoms/typography';
 import GithubRepository from '../repository/github';
 import {useNavigate} from 'react-router-dom';
@@ -13,6 +13,11 @@ const Login = () => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
+  const {
+    colors: {
+      neutral: {BLACK, DARK_GREY, GREY_BLUE, WHITE},
+    },
+  } = useTheme();
 
   const initializing = async () => {
     const token = localStorage.getItem('ACCESS_TOKEN');
@@ -30,16 +35,22 @@ const Login = () => {
 
   return (
     <S.Container>
-      <Typography size={'24'} weight={'700'} color="#212121" marginBottom={24}>
+      <Typography size={'24'} weight={'700'} color={BLACK} marginBottom={24}>
         모두의 레포지토리 MO:RE
       </Typography>
-      <Typography size={'18'} weight={'500'} color="#4D4D4D" marginBottom={48}>
+      <Typography size={'18'} weight={'500'} color={DARK_GREY} marginBottom={48}>
         Github 계정으로 자랑하고 싶은 내 레포지토리를 올려 볼까요?
       </Typography>
-      <S.LoginButton onClick={() => initializing()}>
+      <Button
+        className="login-button"
+        padding={'20px 90px'}
+        backgroundColor={WHITE}
+        borderRadius={'8'}
+        borderColor={GREY_BLUE}
+        onClick={() => initializing()}>
         <GithubIcon />
         <Typography size="13">Github 계정으로 로그인</Typography>
-      </S.LoginButton>
+      </Button>
     </S.Container>
   );
 };
@@ -53,16 +64,11 @@ const S = {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  `,
-  LoginButton: styled.button`
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    display: flex;
-    padding: 20px 90px;
-    background-color: #fff;
-    gap: 10px;
-    border: 1px solid #abbed1;
-    border-radius: 8px;
+
+    .login-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
   `,
 };

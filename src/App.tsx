@@ -1,31 +1,28 @@
 import React from 'react';
 import theme from './lib/theme/theme';
 import {ThemeProvider} from 'styled-components';
-import {RecoilRoot} from 'recoil';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import pageRoutes from './routes/pages';
 import ProtectedRoute from './routes/protectedRoute';
 import {Layout} from './components';
 import {GlobalStyle} from './lib/theme/theme';
-import {useRecoilValue} from 'recoil';
-import {authState} from './states';
-
+import {useAuth} from './hooks';
 function App() {
-  const isLoggedIn = useRecoilValue(authState);
+  const {isLoggedIn} = useAuth();
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          {pageRoutes.map((r) => {
-            const isAuthenticated = (!r.isPublic && isLoggedIn) || r.isPublic;
+          {pageRoutes.map(({isPublic, path, element}) => {
+            const isAuthenticated = (!isPublic && isLoggedIn) || isPublic;
             return (
               <Route
-                key={r.path}
-                path={r.path}
+                key={path}
+                path={path}
                 element={
                   <ProtectedRoute isAuthenticated={isAuthenticated}>
-                    <Layout>{r.element}</Layout>
+                    <Layout>{element}</Layout>
                   </ProtectedRoute>
                 }
               />

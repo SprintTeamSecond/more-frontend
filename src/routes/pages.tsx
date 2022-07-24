@@ -1,6 +1,7 @@
 import Login from '../pages/Login';
 import Main from '../pages/Main';
 import Callback from '../pages/Callback';
+import Detail from '../pages/Detail';
 
 const pageRoutes: {
   path: string;
@@ -21,6 +22,11 @@ const pageRoutes: {
     path: '/login',
     isPublic: true,
     element: <Login />,
+  },
+  {
+    path: '/detail',
+    isPublic: true,
+    element: <Detail />,
   },
 ];
 
