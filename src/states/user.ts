@@ -1,10 +1,10 @@
 import {atom, RecoilValue} from 'recoil';
 
 interface userStateType {
-  id: number | null;
-  username: string | null;
-  avatar: string | null;
-  email: string | null;
+  id?: number | null;
+  username?: string | null;
+  avatar?: string | null;
+  email?: string | null;
 }
 
 export const userState = atom<userStateType>({

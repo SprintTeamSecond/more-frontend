@@ -25,10 +25,10 @@ const S = {
     align-items: center;
   `,
   Main: styled.main`
-    width: 62%;
     display: flex;
+    width: 60%;
     flex-direction: column;
-    min-height: calc(100vh - 88px);
+    min-height: calc(100vh - 200px);
     height: 100%;
   `,
 };

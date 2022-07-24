@@ -12,7 +12,7 @@ class GithubRepository {
     ).data;
   };
   getUser = async (access_token: string) => {
-    return await axios.get<GithubUser>(
+    return await axios.get<any>(
       `${this.BASE_URL}/auth/github?token=${access_token}`,
     );
   };
