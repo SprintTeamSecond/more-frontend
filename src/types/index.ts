@@ -14,7 +14,7 @@ export interface PostEntity {
   title: string;
   like: number;
   description: string;
-  used_language: string[];
+  used_language: string;
   thumbnail: string;
   created_at: string;
 }

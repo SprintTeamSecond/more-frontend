@@ -1,7 +1,14 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {GithubPost, PostEntity} from '../types';
-import {CommentIcon, LikeIcon, NodeJsIcon, UserIcon} from './atoms/Icon';
+import {
+  CommentIcon,
+  LikeIcon,
+  UserIcon,
+  NodeJsIcon,
+  JsIcon,
+  NextJsIcon,
+} from './atoms/Icon';
 import Typography from './atoms/typography';
 
 interface CardProps {
@@ -9,28 +16,42 @@ interface CardProps {
 }
 
 const CardItem = ({data}: CardProps) => {
+  const renderTextMaxLength = (text: string, maxLength: number) => {
+    const {length} = text;
+    return length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  };
+
+  const tagToIcon = (tag: string) => {
+    const tagList: string[] = tag.split('::');
+    const result = tagList.map((item) => {
+      switch (true) {
+        case item.toLowerCase().includes('javascript'):
+          return <JsIcon key={item} />;
+        case item.toLowerCase().includes('nodejs'):
+          return <NodeJsIcon key={item} />;
+        case item.toLowerCase().includes('nextjs'):
+          return <NextJsIcon key={item} />;
+      }
+    });
+    return result;
+  };
+
   return (
     <S.Container>
-      <img className="thumbnail" src={data.thumbnail} />
+      <img className="thumbnail" src={data?.thumbnail} />
       <div className="contentsContainer">
         <div className="titleBox">
           <Typography size="22" weight="700" color="#212121">
-            {data.title.length > 33
-              ? data.title.substring(0, 33) + '...'
-              : data.title}
+            {renderTextMaxLength(data.title, 33)}
           </Typography>
         </div>
         <div className="descBox">
           <Typography size="16" weight="400" color="#4d4d4d">
-            {data.description.length > 46
-              ? data.description.substring(0, 46) + '...'
-              : data.description}
+            {renderTextMaxLength(data.description, 46)}
           </Typography>
         </div>
         <section className="languageTagSection">
-          {data.used_language.map((item) => {
-            return <NodeJsIcon />;
-          })}
+          {tagToIcon(data.used_language)}
         </section>
         <section className="bottomSection">
           <div className="userInfo">
@@ -81,11 +102,12 @@ const S = {
       background-color: #717171;
     }
     .contentsContainer {
+      position: relative;
+      height: 298px;
       padding: 24px;
     }
     .titleBox {
       width: 330px;
-      height: 62px;
       line-height: 140%;
       margin-bottom: 12px;
     }
@@ -98,12 +120,16 @@ const S = {
     .languageTagSection {
       display: flex;
       gap: 13px;
+      padding: 0 10px;
       margin-bottom: 44px;
     }
     .bottomSection {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
     }
     .userInfo {
       display: flex;
