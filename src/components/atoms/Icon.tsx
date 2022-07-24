@@ -92,7 +92,7 @@ export const DownArrowIcon = () => (
     xmlns="http://www.w3.org/2000/svg">
     <path
       d="M15 1L8 7L1 0.999999"
-      stroke="black"
+      stroke="#212121"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
