@@ -1,5 +1,5 @@
 import {Endpoints} from '@octokit/types';
-import {apiAxios, githubAxios} from '../../lib/axios';
+import {apiAxios, githubAxios} from '.';
 import {PostCreateForm} from '../../types';
 
 type UserReposResponseData =

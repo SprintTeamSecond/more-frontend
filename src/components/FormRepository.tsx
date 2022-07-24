@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import {useRecoilState} from 'recoil';
 import {userStateType, userState} from '../states/user';
-import {fetch} from '../lib/axios/uploadForm';
+import {fetch} from '../lib/axios/uploadRepository';
 
 type FormData = {
   userName: string;
@@ -29,8 +29,9 @@ export const FormRepository = () => {
   const {fetchUserRepos, fetchFormData} = fetch();
 
   const [repos, setRepos] = useState<UserRepo[]>();
-  const {register, handleSubmit} = useForm<FormInput>();
   const [formData, setFormData] = useState<FormInput>();
+
+  const {register, handleSubmit} = useForm<FormInput>();
 
   const [userData] = useRecoilState<userStateType>(userState);
 
