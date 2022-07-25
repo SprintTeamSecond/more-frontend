@@ -61,12 +61,12 @@ MO:RE
 |닉네임|담당 페이지, 역할|
 |:-:|:-:|
 |[루프](https://github.com/thyroscope-jihun)|Backend|
-|래래 | [Figma 디자인](https://www.figma.com/file/ueT5dwpG1iIn9X57UrhjX4/%ED%85%8C%EC%98%A4-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8-10%EA%B8%B0_%EC%9E%90%EB%A0%88%ED%8F%AC?node-id=0%3A1)|
-|[홍](https://github.com/Hong-been) | 레포 업로드 페이지(React hook form 사용, 셀렉터 컴포넌트 구현)|
-|[매직타로](https://github.com/kmin-jeong) | 마이페이지|
-|[제이](https://github.com/wnsguddl789) | Github Oauth 로그인 구현 / Global Layout & Theme 설정|
-|하마 | 디테일 페이지|
-|[우디](https://github.com/woo-jk)| 메인 페이지|
+|[래래]|[Figma 디자인](https://www.figma.com/file/ueT5dwpG1iIn9X57UrhjX4/%ED%85%8C%EC%98%A4-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8-10%EA%B8%B0_%EC%9E%90%EB%A0%88%ED%8F%AC?node-id=0%3A1)|
+|[홍](https://github.com/Hong-been)|레포 업로드 페이지(React hook form 사용, 셀렉터 컴포넌트 구현)|
+|[매직타로](https://github.com/kmin-jeong)|마이페이지|
+|[제이](https://github.com/wnsguddl789)|Github Oauth 로그인 구현 / Global Layout & Theme 설정|
+|[하마](https://github.com/kk3june)|디테일 페이지|
+|[우디](https://github.com/woo-jk)|메인 페이지|
 
 
 
