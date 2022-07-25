@@ -4,6 +4,8 @@ import {UserIcon, Button} from '../components/atoms';
 import Typography from '../components/atoms/typography';
 import {useNavigate} from 'react-router-dom';
 import {Tab} from '../components/Tabui';
+import {authState, userState} from '../states';
+import {useRecoilState} from 'recoil';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -13,8 +15,14 @@ const Profile = () => {
       primary: {MEDIUM_BLUE},
     },
   } = useTheme();
+  const [user, setUser] = useRecoilState(userState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
 
-  const {isLoggedIn, userData} = useAuth();
+  const logout = () => {
+    localStorage.removeItem('ACCESS_TOKEN');
+    setUser(null);
+    setIsLoggedIn(false);
+  };
   return (
     <div
       style={{
@@ -62,6 +70,7 @@ const Profile = () => {
             </Typography>
           </Button>
           <Button
+            onClick={logout}
             padding={'8px 16px'}
             borderRadius={'24'}
             borderColor={LIGHT_GREY_BLUE}>
