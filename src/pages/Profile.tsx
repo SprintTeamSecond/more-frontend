@@ -12,6 +12,8 @@ import {useNavigate} from 'react-router-dom';
 import {Tabui} from '../components/Tabui';
 
 const Profile = () => {
+  const [user, setUser] = useRecoilState(userState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
   const navigate = useNavigate();
   const {
     colors: {
@@ -22,6 +24,11 @@ const Profile = () => {
 
   const [userList, setuserList] = useRecoilState(userState);
   const profile = useProfile(userList);
+  const logout = () => {
+    localStorage.removeItem('ACCESS_TOKEN');
+    setUser(null);
+    setIsLoggedIn(false);
+  };
   return (
     <>
       <S.ProfileContainer>
@@ -30,7 +37,7 @@ const Profile = () => {
           <UserIcon />
         </S.Avatar>
         <S.Avatar className="Introduce">
-          {profile.userList.name}
+          {profile?.userList?.name}
           <br />
           <br />
           나를 소개하는 한 줄 소개 입니다 몇자나 소개하면 좋을까요
@@ -47,6 +54,7 @@ const Profile = () => {
         </S.Avatar>
         <S.Avatar>
           <Button
+            onClick={logout}
             backgroundColor={WHITE}
             borderRadius={'8'}
             borderColor={GREY_BLUE}

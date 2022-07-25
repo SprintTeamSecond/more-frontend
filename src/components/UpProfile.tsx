@@ -12,9 +12,9 @@ const UpProfile = () => {
   return (
     <>
       <div>
-        <div>username:{profile.userList.name}</div>
-        <div>id:{profile.userList.id}</div>
-        <div>avatar:{profile.userList.avatar}</div>
+        <div>username:{profile?.userList?.name}</div>
+        <div>id:{profile?.userList?.id}</div>
+        <div>avatar:{profile?.userList?.avatar}</div>
       </div>
     </>
   );
