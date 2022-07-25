@@ -41,10 +41,12 @@ const Header: React.FunctionComponent = () => {
           </form>
           {isLoggedIn ? (
             <section className="user-section">
-              <UserIcon />
-              <Button onClick={() => navigate('/post/new', {replace: true})}>
+              <Typography onClick={() => navigate('/profile', {replace: true})}>
+                <UserIcon />
+              </Typography>
+              <Typography onClick={() => navigate('/post/new', {replace: true})}>
                 <PostIcon />
-              </Button>
+              </Typography>
             </section>
           ) : (
             <section className="login-section">
@@ -101,6 +103,8 @@ const S = {
       .search-section {
         display: flex;
         flex: 1;
+        padding: 15px 16px 15px 12px;
+        border-radius: 8px;
         align-items: center;
         position: relative;
         background: #eef5fc;
