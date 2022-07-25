@@ -36,7 +36,7 @@ const Header: React.FunctionComponent = () => {
               borderRadius={'14'}
             />
             <Button type="submit">
-              <SearchIcon className="searchIcon" />
+              <SearchIcon />
             </Button>
           </form>
           {isLoggedIn ? (
@@ -44,7 +44,9 @@ const Header: React.FunctionComponent = () => {
               <Typography onClick={() => navigate('/profile', {replace: true})}>
                 <UserIcon />
               </Typography>
-              <PostIcon />
+              <Typography onClick={() => navigate('/post/new', {replace: true})}>
+                <PostIcon />
+              </Typography>
             </section>
           ) : (
             <section className="login-section">
@@ -101,6 +103,8 @@ const S = {
       .search-section {
         display: flex;
         flex: 1;
+        padding: 15px 16px 15px 12px;
+        border-radius: 8px;
         align-items: center;
         position: relative;
         background: #eef5fc;
