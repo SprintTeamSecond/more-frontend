@@ -10,6 +10,8 @@ import {
   StarIcon,
   PublishIcon,
   UpArrowIcon,
+  JsIcon,
+  NodeJsIcon,
 } from '../components/atoms';
 import styled from 'styled-components';
 import {Marked, Renderer} from '@ts-stack/markdown';
@@ -115,6 +117,18 @@ const Detail = () => {
             </div>
           </PostInfo>
         </RepoInfo>
+
+        <Languages>
+          <LangWrapper>
+            <JsIcon width="18" height="18" />
+            <Typography>JavsScript</Typography>
+          </LangWrapper>
+          <LangWrapper>
+            <NodeJsIcon width="18" height="18" />
+            <Typography>NodeJs</Typography>
+          </LangWrapper>
+        </Languages>
+
         <hr />
         <S.Container className="readme-body">
           <S.Readme id="readme"></S.Readme>
@@ -186,6 +200,31 @@ const PostInfo = styled.div`
     display: flex;
     gap: 24.5px;
   }
+`;
+
+const Languages = styled.div`
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  margin-bottom: 24px;
+`;
+const LangWrapper = styled.div`
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 4px;
+  height: 40px;
+  /* White */
+  background: #ffffff;
+  /* D+blue */
+  border: 1px solid #0053ad;
+  border-radius: 24px;
 `;
 
 const SideBtns = styled.div`
