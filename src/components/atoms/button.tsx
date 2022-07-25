@@ -6,7 +6,9 @@ type ButtonProps = {
   paddingRight?: string | number;
   paddingBottom?: string | number;
   paddingLeft?: string | number;
-
+  width?: string | number;
+  height?: string | number;
+  color?: string;
   backgroundColor?: string;
 
   borderColor?: string;
@@ -14,6 +16,8 @@ type ButtonProps = {
 };
 
 export const Button = styled.button<ButtonProps>`
+  width: ${({width}) => (width ? width + 'px' : null)};
+  height: ${({height}) => (height ? height + 'px' : null)};
   padding: ${({padding}) => (padding ? padding : null)};
   padding-top: ${({paddingTop}) => (paddingTop ? paddingTop + 'px' : null)};
   padding-right: ${({paddingRight}) => (paddingRight ? paddingRight + 'px' : null)};
@@ -23,7 +27,7 @@ export const Button = styled.button<ButtonProps>`
 
   background-color: ${({backgroundColor}) =>
     backgroundColor ? backgroundColor : null};
-
+  color: ${({color}) => (color ? color : null)};
   border: ${({borderColor}) => (borderColor ? '1px solid ' + borderColor : null)};
   border-radius: ${({borderRadius}) => (borderRadius ? borderRadius + 'px' : null)};
 `;

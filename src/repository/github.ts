@@ -1,3 +1,4 @@
+import {RepositoryforDropdown} from './../types/index';
 import axios from 'axios';
 import {GithubUser} from '../types';
 
@@ -12,8 +13,13 @@ class GithubRepository {
     ).data;
   };
   getUser = async (access_token: string) => {
-    return await axios.get<any>(
+    return await axios.get<GithubUser>(
       `${this.BASE_URL}/auth/github?token=${access_token}`,
+    );
+  };
+  getRepositories = async (access_token: string) => {
+    return await axios.get<RepositoryforDropdown[]>(
+      `${this.BASE_URL}/repositories?token=${access_token}`,
     );
   };
 }
