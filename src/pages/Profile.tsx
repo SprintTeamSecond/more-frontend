@@ -4,6 +4,7 @@ import {UserIcon, Button} from '../components/atoms';
 import Typography from '../components/atoms/typography';
 import {useNavigate} from 'react-router-dom';
 import {Tab} from '../components/Tabui';
+
 const Profile = () => {
   const navigate = useNavigate();
   const {
@@ -12,6 +13,7 @@ const Profile = () => {
       primary: {MEDIUM_BLUE},
     },
   } = useTheme();
+
   const {isLoggedIn, userData} = useAuth();
   return (
     <div
@@ -94,6 +96,7 @@ const Profile = () => {
     </div>
   );
 };
+
 const S = {
   ProfileContainer: styled.div``,
   ProfileSection: styled.div`
@@ -103,6 +106,7 @@ const S = {
     flex: 1;
     justify-content: space-between;
     align-items: center;
+
     .left-section {
       display: flex;
       gap: 32px;
@@ -112,6 +116,7 @@ const S = {
       display: flex;
       align-items: center;
       gap: 32px;
+
       & > * {
         display: flex;
         gap: 8px;
@@ -129,6 +134,7 @@ const S = {
   `,
   TabContent: styled.div`
     display: flex;
+
     flex: 20;
     align-items: center;
     flex-direction: column;
