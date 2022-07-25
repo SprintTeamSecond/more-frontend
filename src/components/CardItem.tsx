@@ -15,11 +15,14 @@ interface CardProps {
   data: GithubPost;
 }
 
+import {useNavigate} from 'react-router-dom';
+
 const CardItem = ({data}: CardProps) => {
   const renderTextMaxLength = (text: string, maxLength: number) => {
     const {length} = text;
     return length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
+  const navigate = useNavigate();
 
   const tagToIcon = (tag: string) => {
     const tagList: string[] = tag.split('::');
@@ -37,7 +40,7 @@ const CardItem = ({data}: CardProps) => {
   };
 
   return (
-    <S.Container>
+    <S.Container onClick={() => navigate('/detail')}>
       <img className="thumbnail" src={data?.thumbnail} />
       <div className="contentsContainer">
         <div className="titleBox">

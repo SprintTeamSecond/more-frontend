@@ -14,7 +14,7 @@ type InputProps = {
 };
 
 export const Input = styled.input<InputProps>`
-  padding: ${({padding}) => (padding ? padding + 'px' : null)};
+  padding: ${({padding}) => (padding ? padding : null)};
   padding-top: ${({paddingTop}) => (paddingTop ? paddingTop + 'px' : null)};
   padding-right: ${({paddingRight}) => (paddingRight ? paddingRight + 'px' : null)};
   padding-bottom: ${({paddingBottom}) =>

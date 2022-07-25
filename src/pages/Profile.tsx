@@ -1,117 +1,146 @@
-import React, {useState, useEffect} from 'react';
-import axios, {AxiosResponse} from 'axios';
-import {GithubUser} from '../types';
-import {useRecoilState} from 'recoil';
-import {authState, userState} from '../states';
-import useProfile from '../hook/useProfile';
+import {useAuth} from '../hooks';
 import styled, {useTheme} from 'styled-components';
 import {UserIcon, Button} from '../components/atoms';
 import Typography from '../components/atoms/typography';
-import {Tab} from '../components';
 import {useNavigate} from 'react-router-dom';
-import {Tabui} from '../components/Tabui';
+import {Tab} from '../components/Tabui';
 
 const Profile = () => {
-  const [user, setUser] = useRecoilState(userState);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
   const navigate = useNavigate();
   const {
     colors: {
-      neutral: {BLACK, DARK_GREY, GREY_BLUE, WHITE, LIGHT_GREY_BLUE},
+      neutral: {BLACK, DARK_GREY, GREY_BLUE, WHITE, LIGHT_GREY, LIGHT_GREY_BLUE},
       primary: {MEDIUM_BLUE},
     },
   } = useTheme();
 
-  const [userList, setuserList] = useRecoilState(userState);
-  const profile = useProfile(userList);
-  const logout = () => {
-    localStorage.removeItem('ACCESS_TOKEN');
-    setUser(null);
-    setIsLoggedIn(false);
-  };
+  const {isLoggedIn, userData} = useAuth();
   return (
-    <>
-      <S.ProfileContainer>
-        {/* 아바타:{profile.userList.avatar} */}
-        <S.Avatar>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+      }}>
+      <S.ProfileSection>
+        <div className="left-section">
           <UserIcon />
-        </S.Avatar>
-        <S.Avatar className="Introduce">
-          {profile?.userList?.name}
-          <br />
-          <br />
-          나를 소개하는 한 줄 소개 입니다 몇자나 소개하면 좋을까요
-        </S.Avatar>
-        <S.Avatar>
+          <S.ProfileDetail>
+            <div className="user-section">
+              <Typography weight="400" size="18" color={BLACK}>
+                wnsguddl789
+              </Typography>
+              <Typography>
+                <Typography weight={'400'} size="18" color={DARK_GREY}>
+                  팔로잉
+                </Typography>
+                <Typography weight={'700'} size="18" color={MEDIUM_BLUE}>
+                  {12}
+                </Typography>
+              </Typography>
+              <Typography>
+                <Typography weight={'400'} size="18" color={DARK_GREY}>
+                  팔로워
+                </Typography>
+                <Typography weight={'700'} size="18" color={MEDIUM_BLUE}>
+                  {123}
+                </Typography>
+              </Typography>
+            </div>
+            <Typography size="18" color={BLACK} weight="400">
+              나를 소개하는 한 줄 소개 입니다 몇자나 소개하면 좋을까요
+            </Typography>
+          </S.ProfileDetail>
+        </div>
+        <div className="button-section">
           <Button
-            backgroundColor={WHITE}
-            borderRadius={'8'}
-            borderColor={GREY_BLUE}
-            width={'106'}
-            height={'32'}>
-            프로필 수정
+            padding={'8px 16px'}
+            borderRadius={'24'}
+            borderColor={LIGHT_GREY_BLUE}>
+            <Typography weight="500" size="16" color={LIGHT_GREY}>
+              프로필 수정
+            </Typography>
           </Button>
-        </S.Avatar>
-        <S.Avatar>
           <Button
-            onClick={logout}
-            backgroundColor={WHITE}
-            borderRadius={'8'}
-            borderColor={GREY_BLUE}
-            width={'106'}
-            height={'32'}>
-            로그아웃
+            padding={'8px 16px'}
+            borderRadius={'24'}
+            borderColor={LIGHT_GREY_BLUE}>
+            <Typography weight="500" size="16" color={LIGHT_GREY}>
+              로그아웃
+            </Typography>
           </Button>
-        </S.Avatar>
-      </S.ProfileContainer>
-      <S.ProfileContainer>
-        <Tabui />
-      </S.ProfileContainer>
-      <S.ProfileContainer>
-        <S.Avatar className="introduce">
-          <Typography size={'18'} weight={'500'} marginBottom={1000}>
-            아직 레포지토리를 올리지 않았어요
-            <br />
-            <br /> 내 레포지토리를 자랑해볼까요?
-            <br />
-            <br />
-            <Button
-              backgroundColor={MEDIUM_BLUE}
-              borderRadius={'25'}
-              borderColor={GREY_BLUE}
-              color={WHITE}
-              width={'254'}
-              height={'50'}
-              onClick={() => navigate('/post/new', {replace: true})}>
-              지금 올리러 가기
-            </Button>
-          </Typography>
-        </S.Avatar>
-      </S.ProfileContainer>
-    </>
+        </div>
+      </S.ProfileSection>
+      <Tab />
+      <S.TabContent>
+        <Typography
+          size={'18'}
+          weight={'500'}
+          color={DARK_GREY}
+          marginBottom={48}
+          style={{lineHeight: '160%', textAlign: 'center'}}>
+          아직 레포지토리를 올리지 않았어요
+          <br />내 레포지토리를 자랑해볼까요?
+        </Typography>
+        <Button
+          backgroundColor={MEDIUM_BLUE}
+          borderRadius={'25'}
+          borderColor={GREY_BLUE}
+          color={WHITE}
+          width={'254'}
+          height={'50'}
+          onClick={() => navigate('/post/new', {replace: true})}>
+          지금 올리러 가기
+        </Button>
+      </S.TabContent>
+    </div>
   );
 };
 
 const S = {
-  ProfileContainer: styled.div`
-    margin-top: 30px;
-    margin-right: 20px;
-    align-items: left;
-    justify-content: center;
-    height: 500px;
+  ProfileContainer: styled.div``,
+  ProfileSection: styled.div`
+    width: 100%;
+    padding: 64px 0;
     display: flex;
     flex: 1;
-  `,
-  Avatar: styled.div`
-    align-items: left;
-    margin-left: 15px;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    display: flex;
-    .Introduce {
+    justify-content: space-between;
+    align-items: center;
+
+    .left-section {
       display: flex;
-      flex-direction: column;
+      gap: 32px;
+      align-items: center;
     }
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+
+      & > * {
+        display: flex;
+        gap: 8px;
+      }
+    }
+    .button-section {
+      display: flex;
+      gap: 12px;
+    }
+  `,
+  ProfileDetail: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  `,
+  TabContent: styled.div`
+    display: flex;
+
+    flex: 20;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
   `,
   Icon: styled.div`
     display: flex;
