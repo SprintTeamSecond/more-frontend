@@ -16,7 +16,8 @@ const Callback = () => {
       const {code} = qs.parse(location.search, {
         ignoreQueryPrefix: true,
       });
-      const token = await GithubRepository.getAccessToken(code);
+      console.log(code);
+      const token = (await GithubRepository.getAccessToken(code)) as string;
       localStorage.setItem('ACCESS_TOKEN', token);
       const {data} = await GithubRepository.getUser(token);
       if (data) {

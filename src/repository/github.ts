@@ -8,6 +8,8 @@ class GithubRepository {
   getAccessToken = async (
     code: string | qs.ParsedQs | string[] | qs.ParsedQs[] | undefined,
   ) => {
+    console.log('code:', code);
+
     return (
       await axios.get<string>(`${this.BASE_URL}/auth/access_token?code=${code}`)
     ).data;
