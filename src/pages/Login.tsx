@@ -30,6 +30,7 @@ const Login = () => {
       setUser(data);
       setIsLoggedIn(true);
       navigate('/');
+      console.log(user);
     }
   };
 
