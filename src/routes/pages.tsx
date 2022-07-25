@@ -41,7 +41,7 @@ const pageRoutes: {
     element: <UploadRepository />,
   },
   {
-    path: '/detail/:id/:repo',
+    path: '/detail',
     isPublic: true,
     element: <Detail />,
   },

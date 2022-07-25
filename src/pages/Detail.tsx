@@ -20,10 +20,11 @@ import Typography from '../components/atoms/typography';
 import OtherRepo from '../components/atoms/otherRepo';
 
 const data = {
-  _id: 'TEAMSTORMERS',
-  title: '실시간 브레인스토밍 협업 플랫폼',
+  _id: 'SprintTeamSecond',
+  title: '개발자 레포지토리 공유 플랫폼',
   like: 1,
-  description: '팀원 중심의 사이드 프로젝트 구인 플랫폼 한 줄 소개입니다.',
+  description:
+    '개발자들이 자신의 레포지토리를 사람들과 공유할 수 있는 플랫폼 입니다.',
   used_language: ['kotlin', 'react'],
   thumbnail: null,
   created_at: '2022.07.13',
@@ -48,6 +49,7 @@ const Detail = () => {
   const [owner, setOwner] = useState<string>();
   const [repo, setRepo] = useState<string>();
 
+  console.log(readmeHtml);
   const getInfoFromUrl = () => {
     const currentUrl = window.location.href;
     console.log(currentUrl.split('/').splice(4, 2));

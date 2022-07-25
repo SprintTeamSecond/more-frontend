@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 
 const useReadme = () => {
   const [readme, setReadme] = useState();
-  const url = `https://raw.githubusercontent.com/TEAMSTORMERS/STORM_Android/master/README.md`;
+  const url = `https://raw.githubusercontent.com/SprintTeamSecond/more-frontend/develop/README.md`;
 
   axios.get(url).then((res) => setReadme(res.data));
 
