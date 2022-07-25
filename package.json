@@ -37,6 +37,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:net": "react-scripts build && cp build/index.html build/404.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -54,6 +55,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://sprintteamsecond.github.io/more-frontend/",
-  "proxy": "http://localhost:3000"
+  "homepage": "https://sprintteamsecond.github.io"
 }
