@@ -8,10 +8,11 @@ import styled, {useTheme} from 'styled-components';
 import {UserIcon, Button} from '../components/atoms';
 import Typography from '../components/atoms/typography';
 import {Tab} from '../components';
-import {keyboard} from '@testing-library/user-event/dist/keyboard';
+import {useNavigate} from 'react-router-dom';
 import {Tabui} from '../components/Tabui';
 
 const Profile = () => {
+  const navigate = useNavigate();
   const {
     colors: {
       neutral: {BLACK, DARK_GREY, GREY_BLUE, WHITE, LIGHT_GREY_BLUE},
@@ -72,7 +73,8 @@ const Profile = () => {
               borderColor={GREY_BLUE}
               color={WHITE}
               width={'254'}
-              height={'50'}>
+              height={'50'}
+              onClick={() => navigate('/post/new', {replace: true})}>
               지금 올리러 가기
             </Button>
           </Typography>
