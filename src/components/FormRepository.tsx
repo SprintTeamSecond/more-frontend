@@ -4,7 +4,13 @@ import {useForm, SubmitHandler} from 'react-hook-form';
 import {useAuth} from '../hooks';
 import styled from 'styled-components';
 import {fetch} from '../lib/axios/uploadRepository';
-import {GithubIcon, DownArrowIcon, UpArrowIcon} from '../components/atoms/Icon';
+import {
+  GithubIcon,
+  DownArrowIcon,
+  UpArrowIcon,
+  PlusIcon,
+} from '../components/atoms/Icon';
+import Test from '../pages/Test';
 
 type FormData = {
   userName: string;
@@ -64,7 +70,7 @@ export const FormRepository = () => {
     setRepoDesc(item.dataset.desc || '');
   }, []);
 
-  const handleCancleClick = useCallback(() => {
+  const handleCancelClick = useCallback(() => {
     if (confirm('취소하시겠습니까?')) {
       navigate('/');
     }
@@ -145,12 +151,12 @@ export const FormRepository = () => {
           </S.DropDownList>
         )}
       </S.SelectorsContainer>
-      <S.Fotter>
+      <S.Footer>
         <S.Buttons>
-          <S.ButtonCancle onClick={handleCancleClick}>작성 취소하기</S.ButtonCancle>
+          <S.ButtonCancel onClick={handleCancelClick}>작성 취소하기</S.ButtonCancel>
           <S.ButtonSubmit>올리기</S.ButtonSubmit>
         </S.Buttons>
-      </S.Fotter>
+      </S.Footer>
     </S.Form>
   );
 };
@@ -273,7 +279,7 @@ const S = {
     line-height: 100%;
     margin-left: 10px;
   `,
-  Fotter: styled.div`
+  Footer: styled.div`
     position: fixed;
     height: 112px;
     bottom: 0;
@@ -291,7 +297,7 @@ const S = {
     gap: 16px;
   `,
 
-  ButtonCancle: styled.button`
+  ButtonCancel: styled.button`
     width: 157px;
     height: 48px;
     background-color: ${(props) => props.theme.colors.neutral.SILVER};

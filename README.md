@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+MO:RE
+===
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+다른 깃허브 프로젝트 구경하고싶은데 좋은 사이트 어디없나 ~?
 
-## Available Scripts
 
-In the project directory, you can run:
+## 목차
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🎯 이 프로젝트의 목표
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+<br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠 Dependency
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white"/>
 
-### `yarn eject`
+  <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
+   <img src="https://img.shields.io/badge/Vite-747BFF?style=flat-square&logo=Vite&logoColor=white"/>
+   <img src="https://camo.githubusercontent.com/0e2d61e6eed05d238f8996c0ea0c3f7d37994dd107a5b172275b4c85669aaf3d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7374796c656420636f6d706f6e656e74732d4442373039333f7374796c653d666c61742d737175617265266c6f676f3d7374796c65642d636f6d706f6e656e7473266c6f676f436f6c6f723d7768697465"/>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Members
 
-## Learn More
+루프 래래 홍 매직타로 제이 하마 우디
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
