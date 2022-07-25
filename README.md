@@ -70,7 +70,7 @@ MO:RE
 
 
 
-|[루프](https://github.com/thyroscope-jihun)|[래래]|[제이](https://github.com/wnsguddl789)|[매직타로](https://github.com/)|[우디](https://github.com/woo-jk)|[하마](https://github.com/kk3june)|[홍](https://github.com/Hong-been)|
+|[루프](https://github.com/thyroscope-jihun)|[래래]|[제이](https://github.com/wnsguddl789)|[매직타로](https://github.com/kmin-jeong)|[우디](https://github.com/woo-jk)|[하마](https://github.com/kk3june)|[홍](https://github.com/Hong-been)|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |<img src="https://avatars.githubusercontent.com/u/74255306?s=96&v=4" alt="루프" width="100" height="100">|<img src="https://png.pngtree.com/png-vector/20190412/ourlarge/pngtree-vector-color-palette-icon-png-image_930804.jpg" alt="래래" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/33216504?s=96&v=4" alt="제이" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/53456037?v=4" alt="매직타로" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/73513965?v=4" alt="우디" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/34735492?s=96&v=4" alt="하마" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/65804460?s=96&v=4" alt="홍" width="100" height="100">|
 |백엔드, PL|디자이너|프론트|프론트|프론트|프론트|프론트
