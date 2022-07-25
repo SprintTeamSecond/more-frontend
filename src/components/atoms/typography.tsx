@@ -14,7 +14,7 @@ type TypographyProps = {
     | '28'
     | '32'
     | '42';
-  weight?: '400' | '500' | '700' | '900';
+  weight?: '400' | '500' | '600' | '700' | '900';
   color?: string;
   marginBottom?: number;
   marginTop?: number;

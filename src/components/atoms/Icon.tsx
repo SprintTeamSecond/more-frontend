@@ -1,3 +1,19 @@
+export const PlusIcon = () => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M10 19V10M10 10V1M10 10L19 10M10 10H1"
+      stroke="black"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export const UserIcon = () => (
   <svg
     width="36"

@@ -42,7 +42,9 @@ const Header: React.FunctionComponent = () => {
           {isLoggedIn ? (
             <section className="user-section">
               <UserIcon />
-              <PostIcon />
+              <Button onClick={() => navigate('/post/new', {replace: true})}>
+                <PostIcon />
+              </Button>
             </section>
           ) : (
             <section className="login-section">

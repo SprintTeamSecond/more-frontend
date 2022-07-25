@@ -54,78 +54,74 @@ const Test = () => {
   };
 
   return (
-    <SearchStyle.Wrapper>
-      <SearchStyle.Container>
-        <SearchStyle.Form
-          onSubmit={onSubmit}
+    <SearchStyle.Container>
+      <SearchStyle.Form
+        onSubmit={onSubmit}
+        borderRadius={'8'}
+        backgroundColor={LIGHT_BLUE}>
+        <Input
+          padding={'15px 16px 15px 12px'}
           borderRadius={'8'}
-          backgroundColor={LIGHT_BLUE}>
-          <Input
-            padding={'15px 16px 15px 12px'}
-            borderRadius={'8'}
-            backgroundColor={LIGHT_BLUE}
-            placeholder="사용한 언어를 검색하여 등록해보세요"
-            {...register('skills', {
-              onChange,
-              onBlur: (e) => {},
-            })}
-          />
-          <Button>
-            <SearchIcon />
-          </Button>
-        </SearchStyle.Form>
+          backgroundColor={LIGHT_BLUE}
+          placeholder="사용한 언어를 검색하여 등록해보세요"
+          {...register('skills', {
+            onChange,
+            onBlur: (e) => {},
+          })}
+        />
+        <Button>
+          <SearchIcon />
+        </Button>
+      </SearchStyle.Form>
 
-        <SearchStyle.Tag>
-          <div style={{display: 'flex', gap: '5.33px'}}>
-            {skillList?.map(
-              ({name, value, renderIcon}: skillList, index: number) => (
-                <SearchStyle.TagList
-                  key={`${index}`}
-                  padding={'12px 16px'}
-                  borderRadius="24"
-                  borderColor={LIGHT_GREY}
-                  onClick={() => onClickSkill(value)}>
-                  <span>{renderIcon()}</span>
-                  <Typography weight="600" color={LIGHT_GREY}>
-                    {name}
-                  </Typography>
-                </SearchStyle.TagList>
-              ),
-            )}
-          </div>
-        </SearchStyle.Tag>
-        {selectedList.length !== 0 && (
-          <React.Fragment>
-            <SearchStyle.Tag>
-              <div style={{display: 'flex', gap: '5.33px'}}>
-                {selectedList?.map(
-                  ({name, value, renderIcon}: skillList, index: number) => (
-                    <SearchStyle.TagList
-                      key={`${index}`}
-                      padding={'12px 16px'}
-                      borderRadius="24"
-                      borderColor={DARK_BLUE}>
-                      <span>{renderIcon()}</span>
-                      <Typography weight="600" color={DARK_BLUE}>
-                        {name}
-                      </Typography>
-                    </SearchStyle.TagList>
-                  ),
-                )}
-              </div>
-              <Button
-                padding="12px 16px"
-                borderRadius="8"
-                backgroundColor={MEDIUM_BLUE}>
-                <Typography weight="600" color={WHITE}>
-                  확인
-                </Typography>
-              </Button>
-            </SearchStyle.Tag>
-          </React.Fragment>
-        )}
-      </SearchStyle.Container>
-    </SearchStyle.Wrapper>
+      <SearchStyle.Tag>
+        <div style={{display: 'flex', gap: '5.33px'}}>
+          {skillList?.map(({name, value, renderIcon}: skillList, index: number) => (
+            <SearchStyle.TagList
+              key={`${index}`}
+              padding={'12px 16px'}
+              borderRadius="24"
+              borderColor={LIGHT_GREY}
+              onClick={() => onClickSkill(value)}>
+              <span>{renderIcon()}</span>
+              <Typography weight="600" color={LIGHT_GREY}>
+                {name}
+              </Typography>
+            </SearchStyle.TagList>
+          ))}
+        </div>
+      </SearchStyle.Tag>
+      {selectedList.length !== 0 && (
+        <React.Fragment>
+          <SearchStyle.Tag>
+            <div style={{display: 'flex', gap: '5.33px'}}>
+              {selectedList?.map(
+                ({name, value, renderIcon}: skillList, index: number) => (
+                  <SearchStyle.TagList
+                    key={`${index}`}
+                    padding={'12px 16px'}
+                    borderRadius="24"
+                    borderColor={DARK_BLUE}>
+                    <span>{renderIcon()}</span>
+                    <Typography weight="600" color={DARK_BLUE}>
+                      {name}
+                    </Typography>
+                  </SearchStyle.TagList>
+                ),
+              )}
+            </div>
+            <Button
+              padding="12px 16px"
+              borderRadius="8"
+              backgroundColor={MEDIUM_BLUE}>
+              <Typography weight="600" color={WHITE}>
+                확인
+              </Typography>
+            </Button>
+          </SearchStyle.Tag>
+        </React.Fragment>
+      )}
+    </SearchStyle.Container>
   );
 };
 
