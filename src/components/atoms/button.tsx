@@ -8,7 +8,7 @@ type ButtonProps = {
   paddingLeft?: string | number;
   width?: string | number;
   height?: string | number;
-
+  color?: string;
   backgroundColor?: string;
 
   borderColor?: string;
@@ -27,7 +27,7 @@ export const Button = styled.button<ButtonProps>`
 
   background-color: ${({backgroundColor}) =>
     backgroundColor ? backgroundColor : null};
-
+  color: ${({color}) => (color ? color : null)};
   border: ${({borderColor}) => (borderColor ? '1px solid ' + borderColor : null)};
   border-radius: ${({borderRadius}) => (borderRadius ? borderRadius + 'px' : null)};
 `;

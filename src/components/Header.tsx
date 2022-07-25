@@ -41,7 +41,9 @@ const Header: React.FunctionComponent = () => {
           </form>
           {isLoggedIn ? (
             <section className="user-section">
-              <UserIcon />
+              <Typography onClick={() => navigate('/profile', {replace: true})}>
+                <UserIcon />
+              </Typography>
               <PostIcon />
             </section>
           ) : (
