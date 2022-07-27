@@ -84,7 +84,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body{
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,"SUIT-Regular","SUIT-Medium","SUIT-SemiBold","SUIT-Bold","SUIT-Heavy"
+    font-family: "SUIT-Regular","SUIT-Medium","SUIT-SemiBold","SUIT-Bold","SUIT-Heavy"
   }
   a {
     color: inherit;
