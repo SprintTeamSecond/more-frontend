@@ -4,7 +4,7 @@ import Typography from '../components/atoms/typography';
 import GithubRepository from '../repository/github';
 import {useNavigate} from 'react-router-dom';
 
-const GITHUB_END_POINT = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=repo:status read:repo_hook user:email&redirect_uri=http://localhost:3000/callback`;
+const GITHUB_END_POINT = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=repo:status read:repo_hook user:email&redirect_uri=${process.env.REACT_APP_REDRIECT_URL}`;
 
 import {useRecoilState} from 'recoil';
 import {userState, authState} from '../states';

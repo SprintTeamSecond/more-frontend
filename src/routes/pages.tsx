@@ -27,22 +27,22 @@ const pageRoutes: {
   },
   {
     path: '/profile',
-    isPublic: false,
+    isPublic: true,
     element: <Profile />,
   },
   {
     path: '/post/new',
-    isPublic: false, // false가 맞는데, 개발편의상 개발중에만 true로 해놓을게요!
+    isPublic: true, // true가 맞는데, 개발편의상 개발중에만 true로 해놓을게요!
     element: <UploadRepository />,
   },
   {
     path: '/post/:id',
-    isPublic: false, // false가 맞는데, 개발편의상 개발중에만 true로 해놓을게요!
+    isPublic: true, // true가 맞는데, 개발편의상 개발중에만 true로 해놓을게요!
     element: <UploadRepository />,
   },
   {
     path: '/detail',
-    isPublic: false,
+    isPublic: true,
     element: <Detail />,
   },
 ];

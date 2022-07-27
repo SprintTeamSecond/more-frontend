@@ -1,5 +1,6 @@
 import React, {SetStateAction, useEffect, useState} from 'react';
 import useReadme from '../hooks/useReadme';
+import {Utterances} from 'utterances-react-component';
 import {
   GithubIcon,
   ShareIcon,
@@ -9,6 +10,8 @@ import {
   StarIcon,
   PublishIcon,
   UpArrowIcon,
+  JsIcon,
+  NodeJsIcon,
 } from '../components/atoms';
 import styled from 'styled-components';
 import {Marked, Renderer} from '@ts-stack/markdown';
@@ -17,10 +20,11 @@ import Typography from '../components/atoms/typography';
 import OtherRepo from '../components/atoms/otherRepo';
 
 const data = {
-  _id: 'TEAMSTORMERS',
-  title: '실시간 브레인스토밍 협업 플랫폼',
+  _id: 'SprintTeamSecond',
+  title: '개발자 레포지토리 공유 플랫폼',
   like: 1,
-  description: '팀원 중심의 사이드 프로젝트 구인 플랫폼 한 줄 소개입니다.',
+  description:
+    '개발자들이 자신의 레포지토리를 사람들과 공유할 수 있는 플랫폼 입니다.',
   used_language: ['kotlin', 'react'],
   thumbnail: null,
   created_at: '2022.07.13',
@@ -42,86 +46,122 @@ const otherRepoMock = [
 const Detail = () => {
   const readme = useReadme();
   const readmeHtml = Marked.parse(readme.toString());
+  const [owner, setOwner] = useState<string>();
+  const [repo, setRepo] = useState<string>();
+
+  console.log(readmeHtml);
+  const getInfoFromUrl = () => {
+    const currentUrl = window.location.href;
+    console.log(currentUrl.split('/').splice(4, 2));
+
+    setOwner(currentUrl.split('/').splice(4, 2)[0]);
+    setRepo(currentUrl.split('/').splice(4, 2)[1]);
+  };
 
   useEffect(() => {
     const container = document.getElementById('readme');
     container?.insertAdjacentHTML('afterend', readmeHtml);
-  });
+
+    getInfoFromUrl();
+  }, [readme]);
 
   return (
     <Container>
-      <RepoInfo>
-        <div className="postInfo">
-          <Typography size="16" lineHeight="34">
-            {data.created_at}
+      <InnerContainer>
+        <RepoInfo>
+          <div className="postInfo">
+            <Typography size="16" lineHeight="34">
+              {data.created_at}
+            </Typography>
+            <IconWrapper>
+              <div>
+                <ShareIcon />
+              </div>
+              <div>공유하기</div>
+            </IconWrapper>
+          </div>
+          <Title>
+            <Typography size="42" weight="700">
+              {data.title}
+            </Typography>
+          </Title>
+          <Typography size="20" weight="400">
+            {data.description}
           </Typography>
-          <IconWrapper>
-            <div>
-              <ShareIcon />
+          <PostInfo>
+            <div className="postInfoLeft">
+              <IconWrapper>
+                <UserProfileIcon />
+                <Typography>{data._id}</Typography>
+              </IconWrapper>
+              <IconWrapper>
+                <LikedIcon />
+                <Typography>{data.like}</Typography>
+              </IconWrapper>
+              <IconWrapper>
+                <CommentIcon />
+              </IconWrapper>
             </div>
-            <div>공유하기</div>
-          </IconWrapper>
-        </div>
-        <Title>
-          <Typography size="42" weight="700">
-            {data.title}
+            <div>
+              <IconWrapper
+                style={{
+                  background: '#F5F7FA;',
+                  borderRadius: '16px',
+                  width: '266px',
+                  height: '48px',
+                  padding: '8px 12px',
+                }}>
+                <StarIcon />
+                <Typography color="#4D4D4D">
+                  Github에서 {data.like} star를 받았어요
+                </Typography>
+              </IconWrapper>
+            </div>
+          </PostInfo>
+        </RepoInfo>
+
+        <Languages>
+          <LangWrapper>
+            <JsIcon width="18" height="18" />
+            <Typography>JavsScript</Typography>
+          </LangWrapper>
+          <LangWrapper>
+            <NodeJsIcon width="18" height="18" />
+            <Typography>NodeJs</Typography>
+          </LangWrapper>
+        </Languages>
+
+        <hr />
+        <S.Container className="readme-body">
+          <S.Readme id="readme"></S.Readme>
+        </S.Container>
+        <SideBtns>
+          <SideBtn onClick={() => (location.href = `https://github.com/${owner}`)}>
+            <PublishIcon />
+          </SideBtn>
+          <SideBtn
+            onClick={() => (location.href = `https://github.com/${owner}/${repo}`)}>
+            <GithubIcon />
+          </SideBtn>
+          <SideBtn onClick={() => window.scrollTo(0, 0)}>
+            <UpArrowIcon />
+          </SideBtn>
+        </SideBtns>
+        <hr />
+        <Utterances
+          repo="SprintTeamSecond/comment"
+          theme="github-light"
+          issueTerm="pathname"
+        />
+
+        <OtherRepoList>
+          <Typography size="28" marginBottom={48}>
+            다른 레포지토리 보러 가기
           </Typography>
-        </Title>
-        <Typography size="20" weight="400">
-          {data.description}
-        </Typography>
-        <PostInfo>
-          <div className="postInfoLeft">
-            <IconWrapper>
-              <UserProfileIcon />
-              <Typography>{data._id}</Typography>
-            </IconWrapper>
-            <IconWrapper>
-              <LikedIcon />
-              <Typography>{data.like}</Typography>
-            </IconWrapper>
-            <IconWrapper>
-              <CommentIcon />
-            </IconWrapper>
-          </div>
-          <div>
-            <IconWrapper
-              style={{
-                background: '#F5F7FA;',
-                width: '266px',
-                height: '48px',
-                padding: '8px 12px',
-              }}>
-              <StarIcon />
-              <Typography color="#4D4D4D">
-                Github에서 {data.like} star를 받았어요
-              </Typography>
-            </IconWrapper>
-          </div>
-        </PostInfo>
-      </RepoInfo>
-      <hr />
-      <S.Container className="readme-body">
-        <S.Readme id="readme"></S.Readme>
-      </S.Container>
-      <SideBtns>
-        <SideBtn onClick={() => (location.href = 'github.com')}>
-          <PublishIcon />
-        </SideBtn>
-        <SideBtn onClick={() => (location.href = 'github.com')}>
-          <GithubIcon />
-        </SideBtn>
-        <SideBtn onClick={() => window.scrollTo(0, 0)}>
-          <UpArrowIcon />
-        </SideBtn>
-      </SideBtns>
-      <OtherRepoList>
-        <Typography size="28" marginBottom={48}>
-          다른 레포지토리 보러 가기
-        </Typography>
-        <OtherRepo data={otherRepoMock[0]} />
-        <OtherRepo data={otherRepoMock[1]} />
-      </OtherRepoList>
+          <OtherRepo data={otherRepoMock[0]} />
+          <OtherRepo data={otherRepoMock[1]} />
+        </OtherRepoList>
+      </InnerContainer>
     </Container>
   );
 };
@@ -130,7 +170,10 @@ export default Detail;
 
 const Container = styled.div`
   margin-top: 111px;
-  max-width: 786px;
+`;
+const InnerContainer = styled.div`
+  width: 85%;
+  margin: 0 auto;
 `;
 const RepoInfo = styled.div`
   position: relative;
@@ -161,10 +204,35 @@ const PostInfo = styled.div`
   }
 `;
 
+const Languages = styled.div`
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  margin-bottom: 24px;
+`;
+const LangWrapper = styled.div`
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 4px;
+  height: 40px;
+  /* White */
+  background: #ffffff;
+  /* D+blue */
+  border: 1px solid #0053ad;
+  border-radius: 24px;
+`;
+
 const SideBtns = styled.div`
   position: fixed;
   bottom: 42px;
-  right: 18%;
+  right: 12%;
 `;
 const SideBtn = styled.div`
   display: flex;
@@ -180,13 +248,13 @@ const SideBtn = styled.div`
 `;
 
 const OtherRepoList = styled.div`
+  margin-top: 160px;
   margin-bottom: 130px;
 `;
 
 const S = {
   Container: styled.div`
     position: relative;
-    margin-bottom: 160px;
   `,
   Title: styled.h1`
     display: block;
