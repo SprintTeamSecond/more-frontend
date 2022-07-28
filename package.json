@@ -15,6 +15,7 @@
     "@types/react-dom": "^18.0.0",
     "@types/styled-components": "^5.1.25",
     "axios": "^0.27.2",
+    "craco": "^0.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.1",
@@ -36,11 +37,12 @@
     "gh-pages": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build:net": "react-scripts build && cp build/index.html build/404.html",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "REACT_APP_ENV=development craco start",
+    "build:dev": "REACT_APP_ENV=development craco build",
+    "build:prod": "REACT_APP_ENV=production craco build",
+    "build:net": "craco build && cp build/index.html build/404.html",
+    "test": "craco test",
+    "eject": "craco eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },

@@ -43,6 +43,8 @@ export interface GithubPost extends PostEntity {
   author: string;
   url: string;
   used_language: string;
+  readme_url: string;
+  full_name: string;
 }
 
 export interface RepositoryforDropdown {
@@ -51,6 +53,8 @@ export interface RepositoryforDropdown {
   url: string;
   description: string;
   user: string;
+  full_name: string;
+  updated_at: string;
 }
 
 export interface ImageEntity {}

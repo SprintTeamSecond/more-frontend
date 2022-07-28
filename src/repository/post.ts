@@ -1,15 +1,17 @@
 import axios from 'axios';
 import qs from 'qs';
 import {GithubPost, GithubUser, PostCreateForm} from '../types';
+import ENV from '@ENV';
 
 class PostRepository {
-  private BASE_URL = process.env.REACT_APP_BASE_URL;
+  private BASE_URL = ENV.BASE_URL;
   private DefaultQueryOption = {
     _start: 0,
     _limit: 30,
   };
-  getPosts = async (filter?: {[key: string]: string}[]) => {
+  getPosts = async (token: string, filter?: {[key: string]: string}[]) => {
     const filterString = qs.stringify({
+      token,
       ...this.DefaultQueryOption,
       ...(filter || {}),
     });
