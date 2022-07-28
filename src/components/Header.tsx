@@ -6,7 +6,7 @@ import {UserIcon, PostIcon, SearchIcon} from './atoms/Icon';
 import {Input, Button} from './atoms';
 import {useAuth} from '../hooks';
 import {useTheme} from 'styled-components';
-
+import {LogoIcon} from './atoms/Logo';
 const Header: React.FunctionComponent = () => {
   const {isLoggedIn} = useAuth();
   const navigate = useNavigate();
@@ -19,13 +19,9 @@ const Header: React.FunctionComponent = () => {
     <S.Wrapper>
       <S.Container>
         <div className="left-section">
-          <Typography
-            weight="900"
-            size="27"
-            lineHeight="34"
-            onClick={() => navigate('/', {replace: true})}>
-            MO:RE
-          </Typography>
+          <Button onClick={() => navigate('/', {replace: true})}>
+            <LogoIcon />
+          </Button>
         </div>
         <div className="right-section">
           <form className="search-section" onSubmit={(e) => e.preventDefault()}>
@@ -81,7 +77,7 @@ const S = {
     flex: 0.6;
     align-items: center;
     justify-content: space-between;
-    padding: 22px 0;
+    padding: 17px 0;
     .left-section {
       display: flex;
       flex: 1;
@@ -108,6 +104,12 @@ const S = {
         align-items: center;
         position: relative;
         background: #eef5fc;
+        input,
+        input::placeholder {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 18px;
+        }
       }
       .user-section {
         display: flex;

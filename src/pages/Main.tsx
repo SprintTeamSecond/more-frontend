@@ -1,13 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
+import styled, {useTheme} from 'styled-components';
 import Typography from '../components/atoms/typography';
 import CardItem from '../components/CardItem';
 import {GithubPost, PostEntity} from '../types';
 import PostRepository from '../repository/post';
 import {useNavigate} from 'react-router-dom';
-const Main = () => {
-  const [cardList, setCardList] = useState<GithubPost[]>(dummyData);
+import {Tag} from '../components/atoms';
 
+const Main = () => {
+  const {
+    colors: {
+      neutral: {WHITE, GREY_BLUE},
+      primary: {MEDIUM_BLUE},
+    },
+  } = useTheme();
+
+  const [cardList, setCardList] = useState<GithubPost[]>(dummyData);
+  const [currentTag, setCurrentTag] = useState<string>('ALL');
   const navigate = useNavigate();
   useEffect(() => {
     const getPost = async () => {
@@ -38,6 +47,19 @@ const Main = () => {
           </Typography>
         </button>
       </div>
+      <S.TagList>
+        {Tags.map(({label, value}) => {
+          const isCurrent = currentTag === value;
+          return (
+            <Tag
+              onClick={() => setCurrentTag(value)}
+              color={isCurrent ? WHITE : null}
+              backgroundColor={isCurrent ? MEDIUM_BLUE : WHITE}>
+              {label}
+            </Tag>
+          );
+        })}
+      </S.TagList>
       <div className="cardList">
         {cardList.map((data) => {
           return <CardItem key={data.id} data={data} />;
@@ -47,6 +69,18 @@ const Main = () => {
   );
 };
 export default Main;
+
+const Tags: any[] = [
+  {label: 'ALL', value: 'ALL'},
+  {label: 'Vue', value: 'VUE'},
+  {label: 'React', value: 'REACT'},
+  {label: 'Java', value: 'JAVA'},
+  {label: 'JavaScript', value: 'JAVASCRIPT'},
+  {label: 'TypeScript', value: 'TYPESCRIPT'},
+  {label: 'Html', value: 'HTML'},
+  {label: 'Css', value: 'CSS'},
+  {label: 'Swift', value: 'SWIFT'},
+];
 
 const S = {
   Container: styled.div`
@@ -84,155 +118,94 @@ const S = {
       }
     }
   `,
+  TagList: styled.ul`
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 16px;
+    /* padding: 60px 0; */
+  `,
 };
 
 const dummyData: GithubPost[] = [
   {
     id: 'id1',
-    title: '포스트 타이틀',
+    title: 'more-frontend',
     post_like: 23,
-    description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
+    description: '모두의 레포지토리입니다.',
     used_language: 'JavaScript::NodeJs::NextJs',
-    thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
+    thumbnail: `${process.env.PUBLIC_URL}/images/openGraphImage.png`,
     created_at: '',
     stars: 12,
-    author: '유저 이름',
+    author: 'wnsguddl789',
     url: 'asd',
   },
   {
     id: 'id2',
-    title:
-      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
+    title: 'typescript-eslint/typescript-eslint',
     post_like: 23,
     description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
+      '✨ Monorepo for all the tooling which enables ESLint to support TypeScript',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
+      'https://opengraph.githubassets.com/5ce4f35c4f48cd4f8ee2507a056507235a2612a2f3132915952d4ade875634a0/typescript-eslint/typescript-eslint',
     created_at: '',
     stars: 12,
-    author: '유저 이름',
+    author: 'typescript-eslint',
     url: 'asd',
   },
   {
     id: 'id3',
-    title:
-      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
+    title: 'next-auth-example',
     post_like: 23,
-    description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
+    description: 'About Example showing how to use NextAuth.js with Next.js',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
+      'https://repository-images.githubusercontent.com/262579731/325861c3-21b2-46e5-90d8-97d0ff23d789',
     created_at: '',
     stars: 12,
-    author: '유저 이름',
+    author: 'nextauthjs',
     url: 'asd',
   },
   {
     id: 'id4',
-    title:
-      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
+    title: 'React-Query',
     post_like: 23,
     description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
+      '🤖 Powerful asynchronous state management, server-state utilities and data fetching for TS/JS, React, Solid, Svelte and Vue.',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
+      'https://repository-images.githubusercontent.com/207645083/e5281400-c0a4-11ea-911e-bf5e8aee9f15',
     created_at: '',
     stars: 12,
-    author: '유저 이름',
+    author: 'TanStack',
     url: 'asd',
   },
   {
     id: 'id5',
-    title:
-      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
+    title: 'nest',
     post_like: 23,
     description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
+      'About A progressive Node.js framework for building efficient, scalable, and enterprise-grade server-side applications on top of TypeScript & JavaScript (ES6, ES7, ES8) 🚀',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
+      'https://opengraph.githubassets.com/b4ec71543143c7f99dad1b82c0a2fd24c0356fe3a5c306754cc2ce2af483c73d/nestjs/nest',
     created_at: '',
     stars: 12,
-    author: '유저 이름',
+    author: 'nestjs',
     url: 'asd',
   },
   {
     id: 'id6',
-    title: '포스트 타이틀',
+    title: 'svelte',
     post_like: 23,
-    description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
+    description: 'Cybernetically enhanced web apps',
     used_language: 'JavaScript::NodeJs::NextJs',
     thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
+      'https://repository-images.githubusercontent.com/74293321/6cef4300-6605-11e9-92a3-9171a14b1e2d',
     created_at: '',
     stars: 12,
-    author: '유저 이름',
-    url: 'asd',
-  },
-  {
-    id: 'id7',
-    title:
-      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
-    post_like: 23,
-    description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
-    used_language: 'JavaScript::NodeJs::NextJs',
-    thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
-    created_at: '',
-    stars: 12,
-    author: '유저 이름',
-    url: 'asd',
-  },
-  {
-    id: 'id8',
-    title:
-      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
-    post_like: 23,
-    description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
-    used_language: 'JavaScript::NodeJs::NextJs',
-    thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
-    created_at: '',
-    stars: 12,
-    author: '유저 이름',
-    url: 'asd',
-  },
-  {
-    id: 'id9',
-    title:
-      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
-    post_like: 23,
-    description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
-    used_language: 'JavaScript::NodeJs::NextJs',
-    thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
-    created_at: '',
-    stars: 12,
-    author: '유저 이름',
-    url: 'asd',
-  },
-  {
-    id: 'id10',
-    title:
-      '포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 포스트 타이틀포스트 타이틀포스트 타이틀포스트 ',
-    post_like: 23,
-    description:
-      '레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다레포에 대한 내용을 포함합니다',
-    used_language: 'JavaScript::NodeJs::NextJs',
-    thumbnail:
-      'https://images.unsplash.com/photo-1658496594141-589b0ec66b8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1624&q=80',
-    created_at: '',
-    stars: 12,
-    author: '유저 이름',
+    author: 'sveltejs',
     url: 'asd',
   },
 ];
