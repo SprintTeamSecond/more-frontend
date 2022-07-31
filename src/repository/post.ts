@@ -32,10 +32,7 @@ class PostRepository {
     );
   };
   createPost = async (form: PostCreateForm) => {
-    const submitForm = qs.stringify({
-      ...form,
-    });
-
+    const submitForm = qs.stringify(form);
     return await axios.post(`${this.BASE_URL}/posts?${submitForm}`);
   };
 }

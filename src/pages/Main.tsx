@@ -20,9 +20,9 @@ const Main = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const getPost = async () => {
-      const {data} = await PostRepository.getPosts();
-      console.log(data);
-      setCardList(data);
+      // const {data} = await PostRepository.getPosts();
+      // console.log(data);
+      // setCardList(data);
     };
     try {
       //   getPost();
@@ -139,6 +139,8 @@ const dummyData: GithubPost[] = [
     stars: 12,
     author: 'wnsguddl789',
     url: 'asd',
+    readme_url: 'dd',
+    full_name: 'dd',
   },
   {
     id: 'id2',
@@ -153,6 +155,8 @@ const dummyData: GithubPost[] = [
     stars: 12,
     author: 'typescript-eslint',
     url: 'asd',
+    readme_url: 'dd',
+    full_name: 'dd',
   },
   {
     id: 'id3',
@@ -166,6 +170,8 @@ const dummyData: GithubPost[] = [
     stars: 12,
     author: 'nextauthjs',
     url: 'asd',
+    readme_url: 'dd',
+    full_name: 'dd',
   },
   {
     id: 'id4',
@@ -180,6 +186,8 @@ const dummyData: GithubPost[] = [
     stars: 12,
     author: 'TanStack',
     url: 'asd',
+    readme_url: 'dd',
+    full_name: 'dd',
   },
   {
     id: 'id5',
@@ -194,6 +202,8 @@ const dummyData: GithubPost[] = [
     stars: 12,
     author: 'nestjs',
     url: 'asd',
+    readme_url: 'dd',
+    full_name: 'dd',
   },
   {
     id: 'id6',
@@ -207,5 +217,7 @@ const dummyData: GithubPost[] = [
     stars: 12,
     author: 'sveltejs',
     url: 'asd',
+    readme_url: 'dd',
+    full_name: 'dd',
   },
 ];
