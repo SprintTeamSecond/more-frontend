@@ -37,7 +37,7 @@ const Header: React.FunctionComponent = () => {
           </form>
           {isLoggedIn ? (
             <section className="user-section">
-              <Typography onClick={() => navigate('/profile', {replace: true})}>
+              <Typography onClick={() => navigate('/auth/profile', {replace: true})}>
                 <UserIcon />
               </Typography>
               <Typography onClick={() => navigate('/post/new', {replace: true})}>
@@ -51,7 +51,7 @@ const Header: React.FunctionComponent = () => {
                 backgroundColor={MEDIUM_BLUE}
                 borderColor={MEDIUM_BLUE}
                 borderRadius={'24'}
-                onClick={() => navigate('/login', {replace: true})}>
+                onClick={() => navigate('/auth/login', {replace: true})}>
                 <Typography size="16" weight="700" color="#FFFFFF">
                   LOG IN
                 </Typography>
