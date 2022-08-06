@@ -1,6 +1,6 @@
-import Main from 'src/pages/Main';
+import MainPage from 'src/pages/MainPage';
 
-import {Login, Profile, Callback} from 'src/pages/auth';
+import {LoginPage, ProfilePage, CallbackPage} from 'src/pages/auth';
 
 import {
   UploadRepositoryPage,
@@ -15,22 +15,22 @@ const pageRoutes: {
   {
     path: '/',
     isPublic: true,
-    element: <Main />,
+    element: <MainPage />,
   },
   {
     path: '/auth/callback',
     isPublic: true,
-    element: <Callback />,
+    element: <CallbackPage />,
   },
   {
     path: '/auth/login',
     isPublic: true,
-    element: <Login />,
+    element: <LoginPage />,
   },
   {
     path: '/auth/profile',
     isPublic: true,
-    element: <Profile />,
+    element: <ProfilePage />,
   },
   {
     path: '/post/new',
