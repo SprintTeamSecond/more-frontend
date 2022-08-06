@@ -47,7 +47,7 @@ export interface GithubPost extends PostEntity {
   full_name: string;
 }
 
-export interface RepositoryforDropdown {
+export interface RepositoryForDropdown {
   id: string;
   name: string;
   url: string;
