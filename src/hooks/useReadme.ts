@@ -1,22 +1,28 @@
 import axios from 'axios';
 import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
 
 import {dummyData} from 'src/constant';
 
-interface useReadmeProps {
-  id?: string;
+interface fetchReadMeArgument {
+  author?: string;
+  title?: string;
+  branch?: string;
 }
 const BASE_URL = 'https://raw.githubusercontent.com';
-export const useReadme = ({id}: useReadmeProps) => {
-  const [readme, setReadme] = useState<string[]>([]);
+
+export const useReadme = () => {
+  const {repositoryId} = useParams();
+  const [readme, setReadme] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
 
-  const fetchReadMe = async ({repoAuthor, repoTitle, repoBranch}: any) => {
-    const url = `${BASE_URL}/${repoAuthor}/${repoTitle}/${repoBranch}/README.md`;
+  const fetchReadMe = async ({author, title, branch}: fetchReadMeArgument) => {
+    const url = `${BASE_URL}/${author}/${title}/${branch}/README.md`;
     await axios
       .get(url)
       .then(({data}) => {
-        setReadme([data]);
+        setError(false);
+        setReadme(data);
       })
       .catch((err) => {
         setError(true);
@@ -24,12 +30,15 @@ export const useReadme = ({id}: useReadmeProps) => {
   };
 
   React.useEffect(() => {
-    const repo = dummyData.find(({id: targetId}) => id === targetId);
+    const repository = dummyData.find(({id: targetId}) => repositoryId === targetId);
 
-    if (repo) {
-      const {author: repoAuthor, title: repoTitle} = repo;
-      fetchReadMe({repoAuthor, repoTitle, repoBranch: 'develop'});
+    if (repository) {
+      fetchReadMe({
+        author: repository?.author,
+        title: repository?.title,
+        branch: 'develop',
+      });
     }
-  }, [dummyData]);
+  }, [repositoryId]);
   return {readme, error};
 };
