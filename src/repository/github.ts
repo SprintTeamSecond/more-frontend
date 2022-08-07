@@ -1,4 +1,4 @@
-import {RepositoryforDropdown} from './../types/index';
+import {RepositoryForDropdown} from './../types/index';
 import axios from 'axios';
 import {GithubUser} from '../types';
 import ENV from '@ENV';
@@ -20,7 +20,7 @@ class GithubRepository {
     );
   };
   getRepositories = async (access_token: string) => {
-    return await axios.get<RepositoryforDropdown[]>(
+    return await axios.get<RepositoryForDropdown[]>(
       `${this.BASE_URL}/repositories?token=${access_token}`,
     );
   };

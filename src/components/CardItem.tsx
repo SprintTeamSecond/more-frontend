@@ -12,78 +12,73 @@ import {
 import Typography from './atoms/typography';
 
 interface CardProps {
-  data: GithubPost;
+  redirect?: () => void;
+  cardData: GithubPost;
 }
 
-import {useNavigate} from 'react-router-dom';
-
-const CardItem = ({data}: CardProps) => {
-  const renderTextMaxLength = (text: string, maxLength: number) => {
-    const {length} = text;
-    return length > maxLength ? text.substring(0, maxLength) + '...' : text;
-  };
-  const navigate = useNavigate();
-
-  const tagToIcon = (tag: string) => {
-    const tagList: string[] = tag.split('::');
-    const result = tagList.map((item) => {
-      switch (true) {
-        case item.toLowerCase().includes('javascript'):
-          return <JsIcon key={item} />;
-        case item.toLowerCase().includes('nodejs'):
-          return <NodeJsIcon key={item} />;
-        case item.toLowerCase().includes('nextjs'):
-          return <NextJsIcon key={item} />;
-      }
-    });
-    return result;
-  };
-
-  return (
-    <S.Container onClick={() => navigate('/detail')}>
-      <img className="thumbnail" src={data?.thumbnail} />
-      <div className="contentsContainer">
-        <div className="titleBox">
-          <Typography size="22" weight="700" color="#212121">
-            {renderTextMaxLength(data.title, 26)}
+const CardItem: React.FC<CardProps> = ({
+  redirect,
+  cardData: {thumbnail, title, description, hashtag, author, post_like},
+}) => (
+  <S.Container onClick={redirect}>
+    <img className="thumbnail" src={thumbnail} />
+    <div className="contentsContainer">
+      <div className="titleBox">
+        <Typography size="22" weight="700" color="#212121">
+          {renderTextMaxLength(title, 26)}
+        </Typography>
+      </div>
+      <div className="descBox">
+        <Typography size="16" weight="400" color="#4d4d4d">
+          {renderTextMaxLength(description, 40)}
+        </Typography>
+      </div>
+      <section className="languageTagSection">
+        {hashtag && tagToIcon(hashtag.split('::'))}
+      </section>
+      <section className="bottomSection">
+        <div className="userInfo">
+          <UserIcon />
+          <Typography size="16" weight="400" color="#4D4D4D">
+            {author}
           </Typography>
         </div>
-        <div className="descBox">
-          <Typography size="16" weight="400" color="#4d4d4d">
-            {renderTextMaxLength(data.description, 40)}
-          </Typography>
-        </div>
-        <section className="languageTagSection">
-          {data.hashtag && tagToIcon(data.hashtag)}
-        </section>
-        <section className="bottomSection">
-          <div className="userInfo">
-            <UserIcon />
+        <div className="likeComment">
+          <div className="likeBox">
+            <LikeIcon />
             <Typography size="16" weight="400" color="#4D4D4D">
-              {data?.author}
+              {post_like || '-'}
             </Typography>
           </div>
-          <div className="likeComment">
-            <div className="likeBox">
-              <LikeIcon />
-              <Typography size="16" weight="400" color="#4D4D4D">
-                {data?.post_like || '-'}
-              </Typography>
-            </div>
-            <div className="commentBox">
-              <CommentIcon />
-              <Typography size="16" weight="400" color="#4D4D4D">
-                12
-              </Typography>
-            </div>
+          <div className="commentBox">
+            <CommentIcon />
+            <Typography size="16" weight="400" color="#4D4D4D">
+              12
+            </Typography>
           </div>
-        </section>
-      </div>
-    </S.Container>
-  );
-};
+        </div>
+      </section>
+    </div>
+  </S.Container>
+);
 
 export default CardItem;
+
+const tagToIcon = (tagList: string[]) => {
+  return tagList.map((item) => {
+    switch (true) {
+      case item.toLowerCase().includes('javascript'):
+        return <JsIcon key={item} />;
+      case item.toLowerCase().includes('nodejs'):
+        return <NodeJsIcon key={item} />;
+      case item.toLowerCase().includes('nextjs'):
+        return <NextJsIcon key={item} />;
+    }
+  });
+};
+const renderTextMaxLength = (text: string, maxLength: number) => {
+  return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+};
 
 const S = {
   Container: styled.div`

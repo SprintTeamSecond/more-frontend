@@ -1,13 +1,11 @@
-import {useAuth} from '../hooks';
+import {useAuth, useLocalStorage} from 'src/hooks';
 import styled, {useTheme} from 'styled-components';
-import {UserIcon, Button} from '../components/atoms';
-import Typography from '../components/atoms/typography';
+import {UserIcon, Button} from 'src/components/atoms';
+import Typography from 'src/components/atoms/typography';
 import {useNavigate} from 'react-router-dom';
-import {Tab} from '../components/Tabui';
-import {authState, userState} from '../states';
-import {useRecoilState} from 'recoil';
+import {Tab} from 'src/components/Tabui';
 
-const Profile = () => {
+const ProfilePage = () => {
   const navigate = useNavigate();
   const {
     colors: {
@@ -15,12 +13,11 @@ const Profile = () => {
       primary: {MEDIUM_BLUE},
     },
   } = useTheme();
-  const [user, setUser] = useRecoilState(userState);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
+  const {userData, setUserData, setIsLoggedIn} = useAuth();
 
   const logout = () => {
-    localStorage.removeItem('ACCESS_TOKEN');
-    setUser(null);
+    useLocalStorage({method: 'del', key: 'ACCESS_TOKEN'});
+    setUserData(null);
     setIsLoggedIn(false);
   };
   return (
@@ -30,13 +27,13 @@ const Profile = () => {
         flexDirection: 'column',
         flex: 1,
       }}>
-      <S.ProfileSection>
+      <ProfileStyle.Section>
         <div className="left-section">
           <UserIcon />
-          <S.ProfileDetail>
+          <ProfileStyle.Detail>
             <div className="user-section">
               <Typography weight="400" size="18" color={BLACK}>
-                wnsguddl789
+                {userData?.name}
               </Typography>
               <Typography>
                 <Typography weight={'400'} size="18" color={DARK_GREY}>
@@ -58,7 +55,7 @@ const Profile = () => {
             <Typography size="18" color={BLACK} weight="400">
               나를 소개하는 한 줄 소개 입니다 몇자나 소개하면 좋을까요
             </Typography>
-          </S.ProfileDetail>
+          </ProfileStyle.Detail>
         </div>
         <div className="button-section">
           <Button
@@ -79,9 +76,9 @@ const Profile = () => {
             </Typography>
           </Button>
         </div>
-      </S.ProfileSection>
+      </ProfileStyle.Section>
       <Tab />
-      <S.TabContent>
+      <ProfileStyle.TabContent>
         <Typography
           size={'18'}
           weight={'500'}
@@ -101,14 +98,16 @@ const Profile = () => {
           onClick={() => navigate('/post/new', {replace: true})}>
           지금 올리러 가기
         </Button>
-      </S.TabContent>
+      </ProfileStyle.TabContent>
     </div>
   );
 };
 
-const S = {
-  ProfileContainer: styled.div``,
-  ProfileSection: styled.div`
+export default ProfilePage;
+
+const ProfileStyle = {
+  Container: styled.div``,
+  Section: styled.div`
     width: 100%;
     padding: 64px 0;
     display: flex;
@@ -136,7 +135,7 @@ const S = {
       gap: 12px;
     }
   `,
-  ProfileDetail: styled.div`
+  Detail: styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -157,4 +156,3 @@ const S = {
     margin-right: 30px;
   `,
 };
-export default Profile;

@@ -1,12 +1,18 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import styled from 'styled-components';
-import Typography from './atoms/typography';
-import {UserIcon, PostIcon, SearchIcon} from './atoms/Icon';
-import {Input, Button} from './atoms';
-import {useAuth} from '../hooks';
-import {useTheme} from 'styled-components';
-import {LogoIcon} from './atoms/Logo';
+import styled, {useTheme} from 'styled-components';
+
+import {useAuth} from 'src/hooks';
+import {
+  LogoIcon,
+  Typography,
+  UserIcon,
+  PostIcon,
+  SearchIcon,
+  Input,
+  Button,
+} from 'src/components/atoms';
+
 const Header: React.FunctionComponent = () => {
   const {isLoggedIn} = useAuth();
   const navigate = useNavigate();
@@ -37,7 +43,7 @@ const Header: React.FunctionComponent = () => {
           </form>
           {isLoggedIn ? (
             <section className="user-section">
-              <Typography onClick={() => navigate('/profile', {replace: true})}>
+              <Typography onClick={() => navigate('/auth/profile', {replace: true})}>
                 <UserIcon />
               </Typography>
               <Typography onClick={() => navigate('/post/new', {replace: true})}>
@@ -51,7 +57,7 @@ const Header: React.FunctionComponent = () => {
                 backgroundColor={MEDIUM_BLUE}
                 borderColor={MEDIUM_BLUE}
                 borderRadius={'24'}
-                onClick={() => navigate('/login', {replace: true})}>
+                onClick={() => navigate('/auth/login', {replace: true})}>
                 <Typography size="16" weight="700" color="#FFFFFF">
                   LOG IN
                 </Typography>

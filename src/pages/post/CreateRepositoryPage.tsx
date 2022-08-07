@@ -1,18 +1,18 @@
 import React, {useState, useEffect, useCallback, MouseEventHandler} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAuth} from '../hooks';
 import styled from 'styled-components';
-import {GithubIcon, DownArrowIcon, UpArrowIcon} from '../components/atoms/Icon';
-import {PostCreateForm, RepositoryforDropdown} from 'src/types';
-import GithubRepository from 'src/repository/github';
-import PostRepository from 'src/repository/post';
 import moment from 'moment';
 
-const CreatePost = () => {
+import {useAuth} from 'src/hooks';
+import {GithubIcon, DownArrowIcon, UpArrowIcon} from 'src/components/atoms/Icon';
+import {PostCreateForm, RepositoryForDropdown} from 'src/types';
+import {GithubRepository, PostRepository} from 'src/repository';
+
+const CreateRepositoryPage = () => {
   const navigate = useNavigate();
   const {userData} = useAuth();
   const [selectedRepository, setSelectedRepository] =
-    useState<RepositoryforDropdown | null>(null);
+    useState<RepositoryForDropdown | null>(null);
   const [createForm, setCreateForm] = useState<PostCreateForm>({
     author: '',
     github_repository_id: '',
@@ -20,7 +20,7 @@ const CreatePost = () => {
     description: '',
     hashtag: '',
   });
-  const [repositories, setRepositories] = useState<RepositoryforDropdown[]>([]);
+  const [repositories, setRepositories] = useState<RepositoryForDropdown[]>([]);
   const [isReposSelectShow, setIsReposSelectShow] = useState(false);
 
   const handleSelectClick: MouseEventHandler<HTMLElement> = useCallback(
@@ -35,7 +35,7 @@ const CreatePost = () => {
 
   const handleSelectItemClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    repo: RepositoryforDropdown,
+    repo: RepositoryForDropdown,
   ) => {
     const target = e.target as HTMLElement;
     const item = target.closest('.repo') as HTMLElement;
@@ -325,4 +325,4 @@ const S = {
   `,
 };
 
-export default CreatePost;
+export default CreateRepositoryPage;

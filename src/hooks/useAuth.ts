@@ -1,8 +1,9 @@
 import React from 'react';
-
 import {useRecoilState} from 'recoil';
-import {authState, userState} from '../states';
-import GithubRepository from '../repository/github';
+
+import {authState, userState} from 'src/states';
+import GithubRepository from 'src/repository/github';
+
 export const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
   const [userData, setUserData] = useRecoilState(userState);
@@ -18,6 +19,5 @@ export const useAuth = () => {
       getUser(token);
     }
   }, []);
-  return {isLoggedIn, userData};
-  
+  return {isLoggedIn, userData, setIsLoggedIn, setUserData};
 };

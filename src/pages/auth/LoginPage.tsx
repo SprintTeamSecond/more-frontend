@@ -1,19 +1,17 @@
 import styled, {useTheme} from 'styled-components';
-import {GithubIcon, Button} from '../components/atoms';
-import Typography from '../components/atoms/typography';
-import GithubRepository from '../repository/github';
+import {GithubIcon, Button} from 'src/components/atoms';
+import Typography from 'src/components/atoms/typography';
+import GithubRepository from 'src/repository/github';
 import {useNavigate} from 'react-router-dom';
+import {useAuth, useLocalStorage} from 'src/hooks';
 import ENV from '@ENV';
 
 const GITHUB_END_POINT = `https://github.com/login/oauth/authorize?client_id=${ENV.GITHUB_CLIENT_ID}&scope=repo:status read:repo_hook user:email&redirect_uri=${ENV.REDIRECT_URL}`;
 
-import {useRecoilState} from 'recoil';
-import {userState, authState} from '../states';
-
-const Login = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userState);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
+  const {setUserData, setIsLoggedIn} = useAuth();
+  const token = useLocalStorage({method: 'get', key: 'ACCESS_TOKEN'});
   const {
     colors: {
       neutral: {BLACK, DARK_GREY, GREY_BLUE, WHITE},
@@ -21,24 +19,20 @@ const Login = () => {
   } = useTheme();
 
   const initializing = async () => {
-    // localStorage.removeItem('ACCESS_TOKEN');
-
-    const token = localStorage.getItem('ACCESS_TOKEN');
-
-    if (!token) {
+    if (token === undefined) {
       window.location.assign(GITHUB_END_POINT);
-    }
-    // 액세스 토큰이 있다면 자동 로그인 구현
-    const {data} = await GithubRepository.getUser(token as string);
-    if (data) {
-      setUser(data);
-      setIsLoggedIn(true);
-      navigate('/');
+    } else {
+      const {data} = await GithubRepository.getUser(token);
+      if (data) {
+        setUserData(data);
+        setIsLoggedIn(true);
+        navigate('/');
+      }
     }
   };
 
   return (
-    <S.Container>
+    <LoginPageStyle.Container>
       <Typography size={'24'} weight={'700'} color={BLACK} marginBottom={24}>
         모두의 레포지토리 MO:RE
       </Typography>
@@ -55,13 +49,13 @@ const Login = () => {
         <GithubIcon />
         <Typography size="13">Github 계정으로 로그인</Typography>
       </Button>
-    </S.Container>
+    </LoginPageStyle.Container>
   );
 };
 
-export default Login;
+export default LoginPage;
 
-const S = {
+const LoginPageStyle = {
   Container: styled.div`
     display: flex;
     flex: 1;
