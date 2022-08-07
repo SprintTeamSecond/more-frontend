@@ -1,7 +1,9 @@
-import React, {useEffect} from 'react';
-import {useReadme, useRepository} from 'src/hooks';
-import {Utterances} from 'utterances-react-component';
-import {useParams} from 'react-router-dom';
+import React from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+
+import styled, {useTheme} from 'styled-components';
+import {Marked} from '@ts-stack/markdown';
+
 import {
   GithubIcon,
   ShareIcon,
@@ -13,21 +15,16 @@ import {
   UpArrowIcon,
   Typography,
 } from 'src/components/atoms';
-import styled from 'styled-components';
-import {Marked} from '@ts-stack/markdown';
-
-import {OtherRepo, SideButton} from 'src/components/molecules';
-
+import {OtherRepo, SideButton, Comments} from 'src/components/molecules';
 import 'src/styles/Detail.css';
-import {GithubPost} from 'src/types';
+
+import {useReadme, useRepository} from 'src/hooks';
+import {dummyData} from 'src/constant';
 
 const DetailRepositoryPage: React.FC = () => {
   const {repositoryId} = useParams();
   const {
     id,
-    url,
-    readme_url,
-    full_name,
     author,
     created_at,
     description,
@@ -35,13 +32,14 @@ const DetailRepositoryPage: React.FC = () => {
     post_like,
     stars,
     title,
-  } = useRepository({id: repositoryId});
-  const {readme, error} = useReadme({id: repositoryId});
-
-  useEffect(() => {
-    const container = document.getElementById('readme');
-    container?.insertAdjacentHTML('afterend', Marked.parse(readme.toString()));
-  }, [readme]);
+  } = useRepository();
+  const {readme, error} = useReadme();
+  const navigate = useNavigate();
+  const {
+    colors: {
+      neutral: {DARK_GREY, SILVER},
+    },
+  } = useTheme();
 
   const SideButtonList = [
     {
@@ -58,204 +56,177 @@ const DetailRepositoryPage: React.FC = () => {
     },
   ];
 
-  const DetailRepositoryPageViewProps = {
-    id,
-    url,
-    readme_url,
-    full_name,
-    created_at,
-    title,
-    description,
-    author,
-    post_like,
-    stars,
-    used_language,
-    error,
-    SideButtonList,
-  };
+  const otherRepo = dummyData.filter(({id}) => id !== repositoryId);
 
-  return <DetailRepositoryPageView {...DetailRepositoryPageViewProps} />;
-};
-
-interface DetailRepositoryPageViewProps extends GithubPost {
-  error: boolean;
-  SideButtonList: any[];
-}
-
-const DetailRepositoryPageView: React.FC<DetailRepositoryPageViewProps> = ({
-  created_at,
-  title,
-  description,
-  author,
-  post_like,
-  stars,
-  used_language,
-  error,
-  SideButtonList,
-}) => (
-  <Container>
-    <InnerContainer>
-      <RepoInfo>
-        <div className="postInfo">
-          <Typography size="16" lineHeight="34">
-            {created_at}
+  return (
+    <React.Fragment>
+      <DetailStyle.Container>
+        <DetailStyle.RepoInfo>
+          <div className="postInfo">
+            <Typography size="16" lineHeight="34">
+              {created_at}
+            </Typography>
+            <DetailStyle.IconWrapper>
+              <div>
+                <ShareIcon />
+              </div>
+              <div>공유하기</div>
+            </DetailStyle.IconWrapper>
+          </div>
+          <DetailStyle.Title>
+            <Typography size="42" weight="700">
+              {title}
+            </Typography>
+          </DetailStyle.Title>
+          <Typography size="20" weight="400">
+            {description}
           </Typography>
-          <IconWrapper>
-            <div>
-              <ShareIcon />
+          <DetailStyle.PostInfo>
+            <div className="postInfoLeft">
+              <DetailStyle.IconWrapper>
+                <UserProfileIcon />
+                <Typography>{author}</Typography>
+              </DetailStyle.IconWrapper>
+              <DetailStyle.IconWrapper>
+                <LikedIcon />
+                <Typography>{post_like}</Typography>
+              </DetailStyle.IconWrapper>
+              <DetailStyle.IconWrapper>
+                <CommentIcon />
+              </DetailStyle.IconWrapper>
             </div>
-            <div>공유하기</div>
-          </IconWrapper>
-        </div>
-        <Title>
-          <Typography size="42" weight="700">
-            {title}
-          </Typography>
-        </Title>
-        <Typography size="20" weight="400">
-          {description}
-        </Typography>
-        <PostInfo>
-          <div className="postInfoLeft">
-            <IconWrapper>
-              <UserProfileIcon />
-              <Typography>{author}</Typography>
-            </IconWrapper>
-            <IconWrapper>
-              <LikedIcon />
-              <Typography>{post_like}</Typography>
-            </IconWrapper>
-            <IconWrapper>
-              <CommentIcon />
-            </IconWrapper>
-          </div>
-          <div>
-            <IconWrapper
-              style={{
-                background: '#F5F7FA',
-                borderRadius: '16px',
-                width: '266px',
-                height: '48px',
-                padding: '8px 12px',
-              }}>
-              <StarIcon />
-              <Typography color="#4D4D4D">
-                Github에서 {stars} star를 받았어요
-              </Typography>
-            </IconWrapper>
-          </div>
-        </PostInfo>
-      </RepoInfo>
+            <div>
+              <DetailStyle.IconWrapper
+                style={{
+                  background: SILVER,
+                  borderRadius: '16px',
+                  width: '266px',
+                  height: '48px',
+                  padding: '8px 12px',
+                }}>
+                <StarIcon />
+                <Typography color={DARK_GREY}>
+                  Github에서 {stars} star를 받았어요
+                </Typography>
+              </DetailStyle.IconWrapper>
+            </div>
+          </DetailStyle.PostInfo>
+        </DetailStyle.RepoInfo>
 
-      <Languages>
-        {used_language.split('::').map((lang: string, index: number) => (
-          <LangWrapper>
-            <Typography>{lang}</Typography>
-          </LangWrapper>
-        ))}
-      </Languages>
+        <DetailStyle.Languages>
+          {used_language.split('::').map((lang: string, index: number) => (
+            <DetailStyle.LangWrapper key={`usedLanguage-${index}`}>
+              <Typography>{lang}</Typography>
+            </DetailStyle.LangWrapper>
+          ))}
+        </DetailStyle.Languages>
 
-      <hr />
-      <ReadmeStyle.Container className="readme-body">
-        {error ? (
-          <Typography>레포지토리를 불러오지 못했습니다.</Typography>
-        ) : (
-          <ReadmeStyle.Readme id="readme" />
-        )}
-      </ReadmeStyle.Container>
+        <ReadmeStyle.Container className="readme-body">
+          {error ? (
+            <Typography>레포지토리를 불러오지 못했습니다.</Typography>
+          ) : (
+            <ReadmeStyle.Readme id="readme">
+              <div dangerouslySetInnerHTML={{__html: Marked.parse(`${readme}`)}} />
+            </ReadmeStyle.Readme>
+          )}
+        </ReadmeStyle.Container>
 
-      <hr />
+        <Comments />
 
-      <Utterances
-        repo={`${author}/comment`}
-        theme="github-light"
-        issueTerm="pathname"
-      />
-
-      <OtherRepoList>
+        <SideButton buttonList={SideButtonList} />
+      </DetailStyle.Container>
+      <OtherRepoStyle.Container>
         <Typography size="28" marginBottom={48}>
           다른 레포지토리 보러 가기
         </Typography>
-        {otherRepoMock?.map((data, index) => (
-          <OtherRepo data={data} key={`other-repo_${index}`} />
-        ))}
-      </OtherRepoList>
-    </InnerContainer>
-
-    <SideButton buttonList={SideButtonList} />
-  </Container>
-);
+        {otherRepo?.map(
+          ({id, title, description, used_language, thumbnail}, index) => (
+            <OtherRepo
+              redirect={() => {
+                navigate(`/post/detail/${id}`);
+                window.scrollTo(0, 0);
+              }}
+              {...{title, description, used_language: used_language, thumbnail}}
+              key={`other-repo_${index}`}
+            />
+          ),
+        )}
+      </OtherRepoStyle.Container>
+    </React.Fragment>
+  );
+};
 
 export default DetailRepositoryPage;
 
-const Container = styled.div`
-  margin-top: 111px;
-`;
-const InnerContainer = styled.div`
-  width: 85%;
-  margin: 0 auto;
-`;
-const RepoInfo = styled.div`
-  position: relative;
-  .postInfo {
+const DetailStyle = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 104px;
+  `,
+  RepoInfo: styled.div`
+    position: relative;
+    .postInfo {
+      display: flex;
+      justify-content: space-between;
+      height: 30px;
+    }
+  `,
+  Title: styled.div`
+    height: 118px;
+    margin-top: 10px;
+  `,
+  IconWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+  `,
+  PostInfo: styled.div`
+    margin-top: 102px;
     display: flex;
     justify-content: space-between;
-    height: 30px;
-  }
-`;
-
-const Title = styled.div`
-  height: 118px;
-  margin-top: 10px;
-`;
-const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-`;
-const PostInfo = styled.div`
-  margin-top: 102px;
-  display: flex;
-  justify-content: space-between;
-  .postInfoLeft {
+    .postInfoLeft {
+      display: flex;
+      gap: 24.5px;
+    }
+  `,
+  Languages: styled.div`
     display: flex;
-    gap: 24.5px;
-  }
-`;
+    gap: 16px;
+    margin-top: 40px;
+    margin-bottom: 24px;
+  `,
+  LangWrapper: styled.div`
+    box-sizing: border-box;
 
-const Languages = styled.div`
-  display: flex;
-  gap: 16px;
-  margin-top: 40px;
-  margin-bottom: 24px;
-`;
-const LangWrapper = styled.div`
-  box-sizing: border-box;
+    /* Auto layout */
 
-  /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 4px;
+    height: 40px;
+    /* White */
+    background: #ffffff;
+    /* D+blue */
+    border: 1px solid #0053ad;
+    border-radius: 24px;
+  `,
+};
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 16px;
-  gap: 4px;
-  height: 40px;
-  /* White */
-  background: #ffffff;
-  /* D+blue */
-  border: 1px solid #0053ad;
-  border-radius: 24px;
-`;
-
-const OtherRepoList = styled.div`
-  margin-top: 160px;
-  margin-bottom: 130px;
-`;
+const OtherRepoStyle = {
+  Container: styled.div`
+    margin: 160px 0 130px 0;
+  `,
+};
 
 const ReadmeStyle = {
   Container: styled.div`
+    border-top: 1px solid #abbed1;
+    border-bottom: 1px solid #abbed1;
     position: relative;
   `,
   Title: styled.h1`
@@ -299,16 +270,3 @@ const ReadmeStyle = {
   `,
   Readme: styled.div``,
 };
-
-const otherRepoMock = [
-  {
-    title: '글 제목은 한줄만 나와요 넘어가면 점이 생겨요 이렇게 긴 글제목은 말이죠',
-    subTitle:
-      '한 줄 소개 입니다. 한 줄 소개 입니다. 한 줄 소개는 2줄을 넘어가지 않습니다. 2줄을 넘어가면 점이 생겨요 언제 두 줄이 넘어가는 거죠? 언제 두 줄이 넘어가는 거죠? 언제 두 줄이 넘어가는 거죠?',
-  },
-  {
-    title: '글 제목은 한줄만 나와요 넘어가면 점이 생겨요 이렇게 긴 글제목은 말이죠',
-    subTitle:
-      '한 줄 소개 입니다. 한 줄 소개 입니다. 한 줄 소개는 2줄을 넘어가지 않습니다. 2줄을 넘어가면 점이 생겨요',
-  },
-];

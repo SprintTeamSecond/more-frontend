@@ -1,16 +1,15 @@
 import {useState, useEffect, useCallback, MouseEventHandler} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useForm, SubmitHandler} from 'react-hook-form';
-import {useAuth} from '../hooks';
+import {useAuth} from 'src/hooks';
 import styled from 'styled-components';
-import {fetch} from '../lib/axios/uploadRepository';
+import {fetch} from 'src/lib/axios/uploadRepository';
 import {
   GithubIcon,
   DownArrowIcon,
   UpArrowIcon,
   PlusIcon,
-} from '../components/atoms/Icon';
-import Test from '../pages/Test';
+} from 'src/components/atoms/Icon';
 
 type FormData = {
   userName: string;

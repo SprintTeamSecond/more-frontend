@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled, {useTheme} from 'styled-components';
+import {useNavigate} from 'react-router-dom';
+
 import {Typography, Tag} from 'src/components/atoms';
 import CardItem from 'src/components/CardItem';
+
 import {GithubPost, PostEntity} from 'src/types';
 import PostRepository from 'src/repository/post';
-import {useNavigate} from 'react-router-dom';
 import {dummyData} from 'src/constant';
 
 const MainPage = () => {
@@ -15,10 +17,10 @@ const MainPage = () => {
     },
   } = useTheme();
 
-  const [cardList, setCardList] = useState<GithubPost[]>(dummyData);
-  const [currentTag, setCurrentTag] = useState<string>('ALL');
+  const [cardList, setCardList] = React.useState<GithubPost[]>(dummyData);
+  const [currentTag, setCurrentTag] = React.useState<string>('ALL');
   const navigate = useNavigate();
-  useEffect(() => {
+  React.useEffect(() => {
     const getPost = async () => {
       // const {data} = await PostRepository.getPosts();
       // console.log(data);

@@ -1,17 +1,17 @@
 import styled from 'styled-components';
-import {FormRepository} from '../../components/FormRepository';
+import {FormRepository} from 'src/components/FormRepository';
 
 const UploadRepositoryPage = () => {
   return (
-    <S.Layout>
+    <UploadStyle.Layout>
       <FormRepository />
-    </S.Layout>
+    </UploadStyle.Layout>
   );
 };
 
 export default UploadRepositoryPage;
 
-const S = {
+const UploadStyle = {
   Layout: styled.div`
     display: flex;
     flex-direction: column;

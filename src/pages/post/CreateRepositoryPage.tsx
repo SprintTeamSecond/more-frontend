@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useCallback, MouseEventHandler} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAuth} from '../../hooks';
 import styled from 'styled-components';
-import {GithubIcon, DownArrowIcon, UpArrowIcon} from '../../components/atoms/Icon';
-import {PostCreateForm, RepositoryForDropdown} from 'src/types';
-import GithubRepository from 'src/repository/github';
-import PostRepository from 'src/repository/post';
 import moment from 'moment';
+
+import {useAuth} from 'src/hooks';
+import {GithubIcon, DownArrowIcon, UpArrowIcon} from 'src/components/atoms/Icon';
+import {PostCreateForm, RepositoryForDropdown} from 'src/types';
+import {GithubRepository, PostRepository} from 'src/repository';
 
 const CreateRepositoryPage = () => {
   const navigate = useNavigate();

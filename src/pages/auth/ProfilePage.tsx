@@ -1,11 +1,9 @@
-import {useAuth} from '../../hooks';
+import {useAuth, useLocalStorage} from 'src/hooks';
 import styled, {useTheme} from 'styled-components';
-import {UserIcon, Button} from '../../components/atoms';
-import Typography from '../../components/atoms/typography';
+import {UserIcon, Button} from 'src/components/atoms';
+import Typography from 'src/components/atoms/typography';
 import {useNavigate} from 'react-router-dom';
-import {Tab} from '../../components/Tabui';
-import {authState, userState} from '../../states';
-import {useRecoilState} from 'recoil';
+import {Tab} from 'src/components/Tabui';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -15,12 +13,11 @@ const ProfilePage = () => {
       primary: {MEDIUM_BLUE},
     },
   } = useTheme();
-  const [user, setUser] = useRecoilState(userState);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authState);
+  const {userData, setUserData, setIsLoggedIn} = useAuth();
 
   const logout = () => {
-    localStorage.removeItem('ACCESS_TOKEN');
-    setUser(null);
+    useLocalStorage({method: 'del', key: 'ACCESS_TOKEN'});
+    setUserData(null);
     setIsLoggedIn(false);
   };
   return (
@@ -36,7 +33,7 @@ const ProfilePage = () => {
           <ProfileStyle.Detail>
             <div className="user-section">
               <Typography weight="400" size="18" color={BLACK}>
-                wnsguddl789
+                {userData?.name}
               </Typography>
               <Typography>
                 <Typography weight={'400'} size="18" color={DARK_GREY}>

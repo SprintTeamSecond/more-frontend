@@ -1,12 +1,18 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import styled from 'styled-components';
-import Typography from './atoms/typography';
-import {UserIcon, PostIcon, SearchIcon} from './atoms/Icon';
-import {Input, Button} from './atoms';
-import {useAuth} from '../hooks';
-import {useTheme} from 'styled-components';
-import {LogoIcon} from './atoms/Logo';
+import styled, {useTheme} from 'styled-components';
+
+import {useAuth} from 'src/hooks';
+import {
+  LogoIcon,
+  Typography,
+  UserIcon,
+  PostIcon,
+  SearchIcon,
+  Input,
+  Button,
+} from 'src/components/atoms';
+
 const Header: React.FunctionComponent = () => {
   const {isLoggedIn} = useAuth();
   const navigate = useNavigate();
