@@ -8,6 +8,8 @@ export interface GithubUser extends UserEntity {
   name: string;
   url: string;
   introduce: string;
+  following?: number;
+  followers?: number;
 }
 
 export type ProfileProps = {

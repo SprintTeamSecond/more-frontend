@@ -95,7 +95,7 @@ const ProfilePage = () => {
           color={WHITE}
           width={'254'}
           height={'50'}
-          onClick={() => navigate('/post/new', {replace: true})}>
+          onClick={() => navigate('/post/new')}>
           지금 올리러 가기
         </Button>
       </ProfileStyle.TabContent>

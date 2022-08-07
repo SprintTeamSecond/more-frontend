@@ -61,16 +61,17 @@ const CreateRepositoryPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setCreateForm((prev) => {
+      return {
+        ...prev,
+        author: userData?.id.toString() as string,
+      };
+    });
+  }, [userData]);
+
   const onSubmit = async () => {
     try {
-      setCreateForm((prev) => {
-        return {
-          ...prev,
-          author: userData?.id as string,
-        };
-      });
-      console.log(createForm.author);
-
       await PostRepository.createPost(createForm);
       const token = localStorage.getItem('ACCESS_TOKEN');
       const {data} = await GithubRepository.getRepositories(token as string);

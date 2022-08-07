@@ -35,6 +35,7 @@
   },
   "scripts": {
     "start": "REACT_APP_ENV=development craco start",
+    "start:prod": "REACT_APP_ENV=production craco start",
     "build:dev": "REACT_APP_ENV=development craco build",
     "build:prod": "REACT_APP_ENV=production craco build",
     "build:net": "craco build && cp build/index.html build/404.html",
