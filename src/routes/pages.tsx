@@ -1,10 +1,12 @@
-import Login from '../pages/Login';
-import Profile from '../pages/Profile';
-import Main from '../pages/Main';
-import Callback from '../pages/Callback';
-import UploadRepository from '../pages/UploadRepository';
-import Detail from '../pages/Detail';
+import MainPage from 'src/pages/MainPage';
 
+import {LoginPage, ProfilePage, CallbackPage} from 'src/pages/auth';
+
+import {
+  UploadRepositoryPage,
+  CreateRepositoryPage,
+  DetailRepositoryPage,
+} from 'src/pages/post';
 const pageRoutes: {
   path: string;
   isPublic: boolean;
@@ -13,37 +15,37 @@ const pageRoutes: {
   {
     path: '/',
     isPublic: true,
-    element: <Main />,
+    element: <MainPage />,
   },
   {
-    path: '/callback',
+    path: '/auth/callback',
     isPublic: true,
-    element: <Callback />,
+    element: <CallbackPage />,
   },
   {
-    path: '/login',
+    path: '/auth/login',
     isPublic: true,
-    element: <Login />,
+    element: <LoginPage />,
   },
   {
-    path: '/profile',
+    path: '/auth/profile',
     isPublic: true,
-    element: <Profile />,
+    element: <ProfilePage />,
   },
   {
     path: '/post/new',
     isPublic: true, // true가 맞는데, 개발편의상 개발중에만 true로 해놓을게요!
-    element: <UploadRepository />,
+    element: <CreateRepositoryPage />,
   },
   {
     path: '/post/:id',
     isPublic: true, // true가 맞는데, 개발편의상 개발중에만 true로 해놓을게요!
-    element: <UploadRepository />,
+    element: <UploadRepositoryPage />,
   },
   {
-    path: '/detail',
+    path: '/post/detail/:repositoryId',
     isPublic: true,
-    element: <Detail />,
+    element: <DetailRepositoryPage />,
   },
 ];
 

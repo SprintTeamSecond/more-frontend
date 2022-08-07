@@ -1,18 +1,18 @@
-import {RepositoryforDropdown} from './../types/index';
+import {RepositoryForDropdown} from './../types/index';
 import axios from 'axios';
 import {GithubUser} from '../types';
+import ENV from '@ENV';
 
 class GithubRepository {
-  private BASE_URL = process.env.REACT_APP_BASE_URL;
+  private BASE_URL = ENV.BASE_URL;
 
   getAccessToken = async (
     code: string | qs.ParsedQs | string[] | qs.ParsedQs[] | undefined,
   ) => {
-    console.log('code:', code);
-
-    return (
-      await axios.get<string>(`${this.BASE_URL}/auth/access_token?code=${code}`)
-    ).data;
+    const {data} = await axios.get<string>(
+      `${this.BASE_URL}/auth/access_token?code=${code}`,
+    );
+    return data;
   };
   getUser = async (access_token: string) => {
     return await axios.get<GithubUser>(
@@ -20,7 +20,7 @@ class GithubRepository {
     );
   };
   getRepositories = async (access_token: string) => {
-    return await axios.get<RepositoryforDropdown[]>(
+    return await axios.get<RepositoryForDropdown[]>(
       `${this.BASE_URL}/repositories?token=${access_token}`,
     );
   };

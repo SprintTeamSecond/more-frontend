@@ -1,52 +1,27 @@
-import {useState, useEffect, useCallback, MouseEventHandler} from 'react';
+import React, {useState, useEffect, useCallback, MouseEventHandler} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useForm, SubmitHandler} from 'react-hook-form';
-import {useAuth} from 'src/hooks';
 import styled from 'styled-components';
-import {fetch} from 'src/lib/axios/uploadRepository';
-import {
-  GithubIcon,
-  DownArrowIcon,
-  UpArrowIcon,
-  PlusIcon,
-} from 'src/components/atoms/Icon';
+import moment from 'moment';
 
-type FormData = {
-  userName: string;
-  title: string;
-  repositoryUrl: string;
-  description?: string;
-  thumbnail?: string;
-  tags?: string[];
-};
+import {useAuth} from 'src/hooks';
+import {GithubIcon, DownArrowIcon, UpArrowIcon} from 'src/components/atoms/Icon';
+import {PostCreateForm, RepositoryForDropdown} from 'src/types';
+import {GithubRepository, PostRepository} from 'src/repository';
 
-type FormInput = Pick<FormData, 'title' | 'description'>;
-
-type UserRepo = {
-  id: number;
-  description: string | null;
-  fullName: string;
-  updatedAt: string;
-  url: string;
-};
-
-export const FormRepository = () => {
+const CreateRepositoryPage = () => {
   const navigate = useNavigate();
   const {userData} = useAuth();
-  const {fetchUserRepos, fetchFormData} = fetch(); //요기서 서버 api 통신하는 함수 따로 빼놨어요
-
-  const [repos, setRepos] = useState<UserRepo[]>(); //이거는 깃헙api로 레포목록 가져와서 저장하는 역할
-  const [formData, setFormData] = useState<FormInput>(); //이거는 제목, 한줄설명 input 저장
-
+  const [selectedRepository, setSelectedRepository] =
+    useState<RepositoryForDropdown | null>(null);
+  const [createForm, setCreateForm] = useState<PostCreateForm>({
+    author: '',
+    github_repository_id: '',
+    title: '',
+    description: '',
+    hashtag: '',
+  });
+  const [repositories, setRepositories] = useState<RepositoryForDropdown[]>([]);
   const [isReposSelectShow, setIsReposSelectShow] = useState(false);
-  const [repoUrl, setRepoUrl] = useState<string>('');
-  const [RepoTitle, setRepoTitle] = useState<string>('');
-  const [RepoDesc, setRepoDesc] = useState<string>('');
-
-  const {register, handleSubmit} = useForm<FormInput>();
-  const onSubmitHandler: SubmitHandler<FormInput> = (submitData) => {
-    setFormData(submitData);
-  };
 
   const handleSelectClick: MouseEventHandler<HTMLElement> = useCallback(
     (e) => {
@@ -58,16 +33,27 @@ export const FormRepository = () => {
     [isReposSelectShow],
   );
 
-  const handleSelectItemClick: MouseEventHandler<HTMLElement> = useCallback((e) => {
+  const handleSelectItemClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    repo: RepositoryForDropdown,
+  ) => {
     const target = e.target as HTMLElement;
     const item = target.closest('.repo') as HTMLElement;
     if (!item) return;
 
     setIsReposSelectShow(false);
-    setRepoUrl(item.dataset.url || '');
-    setRepoTitle(item.dataset.title || '');
-    setRepoDesc(item.dataset.desc || '');
-  }, []);
+    setSelectedRepository((prev) => {
+      return {
+        ...repo,
+      };
+    });
+    setCreateForm((prev) => {
+      return {
+        ...prev,
+        github_repository_id: repo.id,
+      };
+    });
+  };
 
   const handleCancelClick = useCallback(() => {
     if (confirm('취소하시겠습니까?')) {
@@ -76,44 +62,66 @@ export const FormRepository = () => {
   }, []);
 
   useEffect(() => {
-    formData &&
-      repoUrl &&
-      //userData.username && fetchFormData<FormData>({...formData, userName: userData.username})
-      fetchFormData<FormData>({
-        ...formData,
-        userName: 'facebook',
-        repositoryUrl: repoUrl,
-      })
-        .then(() => {
-          console.log({...formData, userName: 'facebook', repositoryUrl: repoUrl});
-          alert('성공적으로 등록하였습니다. 메인페이지로 이동합니다.');
-          navigate('/');
-        })
-        .catch((e) => alert('잠시 후에 다시 시도해주세요.'));
-  }, [formData]);
+    setCreateForm((prev) => {
+      return {
+        ...prev,
+        author: userData?.id.toString() as string,
+      };
+    });
+  }, [userData]);
+
+  const onSubmit = async () => {
+    try {
+      await PostRepository.createPost(createForm);
+      const token = localStorage.getItem('ACCESS_TOKEN');
+      const {data} = await GithubRepository.getRepositories(token as string);
+      setRepositories(data);
+    } catch (e) {
+      console.log(e);
+      alert('게시글 생성에 실패하였습니다.');
+    }
+  };
 
   useEffect(() => {
-    // userData.username && fetchUserRepos(userData.username)
-    fetchUserRepos('facebook')
-      .then((repos) => setRepos(repos))
-      .catch((e) => alert('잠시 후에 다시 시도해주세요.'));
+    const getRepositories = async () => {
+      const token = localStorage.getItem('ACCESS_TOKEN');
+      const {data} = await GithubRepository.getRepositories(token as string);
+      setRepositories(data);
+    };
+    getRepositories();
   }, []);
 
   return (
-    <S.Form onSubmit={handleSubmit(onSubmitHandler)}>
+    <S.Form onSubmit={onSubmit}>
       <S.TitleContainer>
         <S.Title
           placeholder="제목을 써주세요"
-          {...register('title', {required: true, maxLength: 30})}></S.Title>
+          value={createForm.title}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setCreateForm((prev) => {
+              return {
+                ...prev,
+                title: e.target.value,
+              };
+            })
+          }></S.Title>
       </S.TitleContainer>
       <S.DescContainer>
         <S.Desc
           placeholder="내 레파지토리의 한 줄 소개를 작성해주세요"
-          {...register('description', {required: false})}></S.Desc>
+          value={createForm.description}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setCreateForm((prev) => {
+              return {
+                ...prev,
+                description: e.target.value,
+              };
+            })
+          }></S.Desc>
       </S.DescContainer>
       <S.SelectorsContainer>
         <S.DropDownTitle onClick={handleSelectClick} className="repos">
-          {!RepoTitle && !RepoDesc ? (
+          {!selectedRepository ? (
             <>
               <S.DropDownTitleLeft>
                 <GithubIcon />
@@ -125,8 +133,8 @@ export const FormRepository = () => {
             <>
               <S.DropDownTitleLeft>
                 <GithubIcon />
-                <S.RepoTitle>{RepoTitle && RepoTitle}</S.RepoTitle>
-                <S.RepoDesc>{RepoDesc && RepoDesc}</S.RepoDesc>
+                <S.RepoTitle>{selectedRepository?.full_name}</S.RepoTitle>
+                <S.RepoDesc>{selectedRepository?.description}</S.RepoDesc>
               </S.DropDownTitleLeft>
               <DownArrowIcon />
             </>
@@ -134,17 +142,21 @@ export const FormRepository = () => {
         </S.DropDownTitle>
         {isReposSelectShow && (
           <S.DropDownList>
-            {repos?.map((repo) => (
+            {repositories?.map((repo) => (
               <S.DropDownItem
                 key={repo.id}
-                onClick={handleSelectItemClick}
+                onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+                  handleSelectItemClick(e, repo)
+                }
                 className="repo"
                 data-url={repo.url}
-                data-title={repo.fullName}
+                data-title={repo.full_name}
                 data-desc={repo.description}>
-                <S.RepoTitle>{repo.fullName}</S.RepoTitle>
+                <S.RepoTitle>{repo.full_name}</S.RepoTitle>
                 <S.RepoDesc>{repo.description}</S.RepoDesc>
-                <S.RepoDate>{repo.updatedAt}</S.RepoDate>
+                <S.RepoDate>
+                  {moment(repo.updated_at).format('YYYY-MM-DD')}
+                </S.RepoDate>
               </S.DropDownItem>
             ))}
           </S.DropDownList>
@@ -313,3 +325,5 @@ const S = {
     color: ${(props) => props.theme.colors.neutral.WHITE};
   `,
 };
+
+export default CreateRepositoryPage;

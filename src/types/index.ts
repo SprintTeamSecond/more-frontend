@@ -8,6 +8,8 @@ export interface GithubUser extends UserEntity {
   name: string;
   url: string;
   introduce: string;
+  following?: number;
+  followers?: number;
 }
 
 export type ProfileProps = {
@@ -43,14 +45,18 @@ export interface GithubPost extends PostEntity {
   author: string;
   url: string;
   used_language: string;
+  readme_url: string;
+  full_name: string;
 }
 
-export interface RepositoryforDropdown {
+export interface RepositoryForDropdown {
   id: string;
   name: string;
   url: string;
   description: string;
   user: string;
+  full_name: string;
+  updated_at: string;
 }
 
 export interface ImageEntity {}
